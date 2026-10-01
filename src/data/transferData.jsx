@@ -1,0 +1,58 @@
+const transferData = [
+  {
+    id: 1,
+    player: "Victor Osimhen",
+    from: "Napoli",
+    to: "Chelsea",
+    fee: "€75m",
+    status: "Completed",
+    date: "01 Oct 2026",
+  },
+  {
+    id: 2,
+    player: "Alexander Isak",
+    from: "Newcastle United",
+    to: "Liverpool",
+    fee: "€70m",
+    status: "Completed",
+    date: "29 Sep 2026",
+  },
+  {
+    id: 3,
+    player: "Jamal Musiala",
+    from: "Bayern Munich",
+    to: "Real Madrid",
+    fee: "€90m",
+    status: "Rumour",
+    date: "28 Sep 2026",
+  },
+  {
+    id: 4,
+    player: "Florian Wirtz",
+    from: "Bayer Leverkusen",
+    to: "Manchester City",
+    fee: "€85m",
+    status: "Completed",
+    date: "26 Sep 2026",
+  },
+  {
+    id: 5,
+    player: "Rafael Leão",
+    from: "AC Milan",
+    to: "Barcelona",
+    fee: "€80m",
+    status: "Rumour",
+    date: "24 Sep 2026",
+  },
+  {
+    id: 6,
+    player: "Bruno Guimarães",
+    from: "Newcastle United",
+    to: "Manchester City",
+    fee: "€65m",
+    status: "Rumour",
+    date: "22 Sep 2026",
+  },
+];
+
+export default transferData;
