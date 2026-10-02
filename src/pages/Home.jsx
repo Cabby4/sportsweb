@@ -29,7 +29,7 @@ const Home = () => {
               <span>CABBY SPORTS</span>
 
               <h2>
-                Your Football. Your Stories.
+                The Improved Dynamics of Sports
               </h2>
 
               <p>

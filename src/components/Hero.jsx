@@ -1,114 +1,158 @@
-// import { Link } from "react-router-dom";
-
-// const Hero = () => {
-//   return (
-//     <section
-//       className="relative min-h-[560px] overflow-hidden bg-cover bg-center sm:min-h-[600px]"
-//       style={{
-//         backgroundImage:
-//           'url("https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=1800&q=85")',
-//       }}
-//     >
-//       {/* Dark overlay */}
-//       <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-black/30" />
-
-//       {/* Subtle bottom fade */}
-//       <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/70 to-transparent" />
-
-//       {/* Content */}
-//       <div className="relative flex min-h-[560px] items-center sm:min-h-[600px]">
-//         <div className="mx-auto w-full max-w-[1280px] px-5 py-16 sm:px-6 lg:px-8">
-
-//           <div className="max-w-[760px]">
-
-//             {/* Category */}
-//             <div className="mb-6 flex items-center gap-3">
-//               <span className="h-[3px] w-10 bg-blue-500" />
-
-//               <span className="text-xs font-bold uppercase tracking-[0.25em] text-blue-400">
-//                 Football
-//               </span>
-//             </div>
-
-//             {/* Heading */}
-//             <h1 className="mb-6 text-4xl font-black leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-7xl">
-//               Latest Sports News,
-//               <br />
-//               <span className="text-blue-500">Updates & Stories</span>
-//             </h1>
-
-//             {/* Description */}
-//             <p className="mb-9 max-w-[650px] text-base leading-7 text-gray-300 sm:text-lg">
-//               Stay up to date with the latest football news, transfers,
-//               fixtures, results and stories from around the world.
-//             </p>
-
-//             {/* Buttons */}
-//             <div className="flex flex-wrap items-center gap-4">
-//               <Link
-//                 to="/news"
-//                 className="group inline-flex items-center gap-3 rounded-md bg-blue-600 px-6 py-3.5 text-sm font-bold text-white no-underline shadow-lg shadow-blue-600/20 transition hover:bg-blue-500"
-//               >
-//                 Read Latest News
-
-//                 <span className="transition-transform group-hover:translate-x-1">
-//                   →
-//                 </span>
-//               </Link>
-
-//               <Link
-//                 to="/fixtures"
-//                 className="inline-flex items-center rounded-md border border-gray-500/70 bg-black/20 px-6 py-3.5 text-sm font-bold text-white no-underline backdrop-blur-sm transition hover:border-white hover:bg-white hover:text-black"
-//               >
-//                 View Fixtures
-//               </Link>
-//             </div>
-
-//           </div>
-//         </div>
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default Hero;
-
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+const slides = [
+  {
+    id: 1,
+    category: "FOOTBALL",
+    title: "Latest Sports News, Updates & Stories",
+    description:
+      "Stay up to date with the latest football news, transfers, fixtures, results and stories from around the world.",
+    image: "/hero-football.jpg",
+    primaryText: "Read Latest News",
+    primaryLink: "/news",
+    secondaryText: "View Fixtures",
+    secondaryLink: "/fixtures",
+  },
+  {
+    id: 2,
+    category: "TRANSFER CENTRE",
+    title: "Follow Every Transfer Story",
+    description:
+      "Keep up with transfer news, player movements, rumours and the latest stories from the football market.",
+    image: "/hero-transfers.jpg",
+    primaryText: "View Transfers",
+    primaryLink: "/transfers",
+    secondaryText: "Football Hub",
+    secondaryLink: "/football",
+  },
+  {
+    id: 3,
+    category: "MATCH CENTRE",
+    title: "Fixtures, Results & Match Updates",
+    description:
+      "Follow upcoming fixtures, recent results and match information from competitions around the football world.",
+    image: "/hero-matchday.jpg",
+    primaryText: "View Fixtures",
+    primaryLink: "/fixtures",
+    secondaryText: "View Results",
+    secondaryLink: "/results",
+  },
+];
+
 const Hero = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Automatic slide change
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((previous) =>
+        previous === slides.length - 1 ? 0 : previous + 1
+      );
+    }, 6000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const nextSlide = () => {
+    setCurrentSlide((previous) =>
+      previous === slides.length - 1 ? 0 : previous + 1
+    );
+  };
+
+  const previousSlide = () => {
+    setCurrentSlide((previous) =>
+      previous === 0 ? slides.length - 1 : previous - 1
+    );
+  };
+
+  const slide = slides[currentSlide];
+
   return (
     <section className="cabby-hero">
+
+      {/* Background Images */}
+      <div className="cabby-hero-backgrounds">
+        {slides.map((item, index) => (
+          <div
+            key={item.id}
+            className={`cabby-hero-background ${
+              index === currentSlide ? "active" : ""
+            }`}
+            style={{
+              backgroundImage: `url(${item.image})`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Dark Overlay */}
       <div className="cabby-hero-overlay">
+
         <div className="container">
           <div className="cabby-hero-content">
 
-            <span className="cabby-hero-category">
-              FOOTBALL
-            </span>
+            <div
+              key={slide.id}
+              className="cabby-hero-text"
+            >
+              <span className="cabby-hero-category">
+                {slide.category}
+              </span>
 
-            <h1>
-              Latest Sports News,
-              <br />
-              Updates & Stories
-            </h1>
+              <h1>{slide.title}</h1>
 
-            <p>
-              Stay up to date with the latest football news, transfers,
-              fixtures, results and stories from around the world.
-            </p>
+              <p>{slide.description}</p>
 
-            <div className="cabby-hero-actions">
-              <Link to="/news" className="cabby-primary-btn">
-                Read Latest News <span>→</span>
-              </Link>
+              <div className="cabby-hero-actions">
 
-              <Link to="/fixtures" className="cabby-secondary-btn">
-                View Fixtures
-              </Link>
+                <Link
+                  to={slide.primaryLink}
+                  className="cabby-primary-btn"
+                >
+                  {slide.primaryText}
+
+                  <span>→</span>
+                </Link>
+
+                <Link
+                  to={slide.secondaryLink}
+                  className="cabby-secondary-btn"
+                >
+                  {slide.secondaryText}
+                </Link>
+
+              </div>
             </div>
 
           </div>
         </div>
+
+        {/* Previous */}
+        <button
+          type="button"
+          className="cabby-hero-arrow cabby-hero-prev"
+          onClick={previousSlide}
+          aria-label="Previous slide"
+        >
+          ‹
+        </button>
+
+        {/* Next */}
+        <button
+          type="button"
+          className="cabby-hero-arrow cabby-hero-next"
+          onClick={nextSlide}
+          aria-label="Next slide"
+        >
+          ›
+        </button>
+
+        {/* Slide Controls */}
+        <div className="cabby-hero-controls">
+
+        </div>
+
       </div>
     </section>
   );

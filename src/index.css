@@ -3551,51 +3551,125 @@ main {
    CABBYS SPORTS HERO
 ================================= */
 
+/* =========================================
+   CABBY SPORTS ANIMATED HERO
+========================================= */
+
+/* =========================================
+   CABBY SPORTS HERO
+========================================= */
+
 .cabby-hero {
   min-height: 560px;
+  position: relative;
+  overflow: hidden;
+  background: #061a33;
+}
 
-  background-image:
-    linear-gradient(
-      to right,
-      rgba(0, 0, 0, 0.88),
-      rgba(0, 0, 0, 0.55),
-      rgba(0, 0, 0, 0.25)
-    ),
-    url("https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=1800&q=85");
+/* Background container */
+
+.cabby-hero-backgrounds {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* Individual backgrounds */
+
+.cabby-hero-background {
+  position: absolute;
+  inset: -3%;
 
   background-size: cover;
   background-position: center;
 
-  position: relative;
+  opacity: 0;
+
+  transform: scale(1);
+
+  transition:
+    opacity 1s ease,
+    transform 7s ease;
 }
+
+/* Active image */
+
+.cabby-hero-background.active {
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+
+/* =========================================
+   DARK OVERLAY
+========================================= */
 
 .cabby-hero-overlay {
   min-height: 560px;
 
+  position: relative;
+  z-index: 2;
+
   display: flex;
   align-items: center;
+
+  background:
+    linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.92),
+      rgba(0, 0, 0, 0.68),
+      rgba(0, 0, 0, 0.20)
+    );
 }
+
+
+/* =========================================
+   HERO CONTENT
+========================================= */
 
 .cabby-hero-content {
   max-width: 760px;
 
-  padding-top: 60px;
-  padding-bottom: 60px;
+  padding: 60px 0;
 
   color: #ffffff;
 }
 
-/* Category */
+
+/* Text animation */
+
+.cabby-hero-text {
+  animation: cabbyHeroTextIn 0.7s ease both;
+}
+
+@keyframes cabbyHeroTextIn {
+
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+}
+
+
+/* =========================================
+   CATEGORY
+========================================= */
 
 .cabby-hero-category {
   display: inline-flex;
-  align-items: center;
 
   margin-bottom: 20px;
 
   padding: 7px 13px;
 
   background: #2563eb;
+
   color: #ffffff;
 
   border-radius: 4px;
@@ -3606,7 +3680,10 @@ main {
   letter-spacing: 1.5px;
 }
 
-/* Heading */
+
+/* =========================================
+   TITLE
+========================================= */
 
 .cabby-hero-content h1 {
   margin: 0 0 22px;
@@ -3614,13 +3691,18 @@ main {
   color: #ffffff;
 
   font-size: 58px;
+
   font-weight: 800;
 
   line-height: 1.08;
+
   letter-spacing: -1.5px;
 }
 
-/* Description */
+
+/* =========================================
+   DESCRIPTION
+========================================= */
 
 .cabby-hero-content p {
   max-width: 620px;
@@ -3630,14 +3712,20 @@ main {
   color: #e5e7eb;
 
   font-size: 18px;
+
   line-height: 1.7;
 }
 
-/* Buttons */
+
+/* =========================================
+   BUTTONS
+========================================= */
 
 .cabby-hero-actions {
   display: flex;
+
   align-items: center;
+
   gap: 12px;
 
   flex-wrap: wrap;
@@ -3646,6 +3734,7 @@ main {
 .cabby-primary-btn,
 .cabby-secondary-btn {
   display: inline-flex;
+
   align-items: center;
   justify-content: center;
 
@@ -3656,6 +3745,7 @@ main {
   border-radius: 5px;
 
   font-size: 14px;
+
   font-weight: 700;
 
   text-decoration: none;
@@ -3663,15 +3753,20 @@ main {
   transition: all 0.2s ease;
 }
 
+
+/* Primary */
+
 .cabby-primary-btn {
   gap: 10px;
 
   background: #2563eb;
+
   color: #ffffff;
 }
 
 .cabby-primary-btn:hover {
   background: #1d4ed8;
+
   color: #ffffff;
 
   transform: translateY(-2px);
@@ -3687,6 +3782,9 @@ main {
   transform: translateX(4px);
 }
 
+
+/* Secondary */
+
 .cabby-secondary-btn {
   background: rgba(17, 24, 39, 0.45);
 
@@ -3699,21 +3797,192 @@ main {
 
 .cabby-secondary-btn:hover {
   background: #ffffff;
+
   color: #111827;
 
   border-color: #ffffff;
 }
 
-/* =================================
-   HERO MOBILE
-================================= */
+
+/* =========================================
+   ARROWS
+========================================= */
+
+.cabby-hero-arrow {
+  position: absolute;
+
+  top: 50%;
+
+  z-index: 5;
+
+  width: 48px;
+  height: 48px;
+
+  transform: translateY(-50%);
+
+  border: 1px solid rgba(255, 255, 255, 0.35);
+
+  border-radius: 50%;
+
+  background: rgba(0, 0, 0, 0.25);
+
+  color: #ffffff;
+
+  font-size: 34px;
+
+  font-weight: 300;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  backdrop-filter: blur(4px);
+
+  transition: all 0.2s ease;
+}
+
+.cabby-hero-arrow:hover {
+  background: #2563eb;
+
+  border-color: #2563eb;
+
+  transform: translateY(-50%) scale(1.05);
+}
+
+.cabby-hero-prev {
+  left: 25px;
+}
+
+.cabby-hero-next {
+  right: 25px;
+}
+
+
+/* =========================================
+   SLIDE CONTROLS
+========================================= */
+
+.cabby-hero-controls {
+  position: absolute;
+
+  left: 50%;
+
+  bottom: 28px;
+
+  z-index: 5;
+
+  transform: translateX(-50%);
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 20px;
+}
+
+
+/* Counter */
+
+.cabby-hero-counter {
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  color: #94a3b8;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+.cabby-hero-counter strong {
+  color: #ffffff;
+
+  font-size: 14px;
+}
+
+
+/* Dots */
+
+.cabby-hero-dots {
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+}
+
+.cabby-hero-dots button {
+  width: 28px;
+  height: 3px;
+
+  padding: 0;
+
+  border: 0;
+
+  border-radius: 5px;
+
+  background: rgba(255, 255, 255, 0.4);
+
+  cursor: pointer;
+
+  transition:
+    width 0.25s ease,
+    background 0.25s ease;
+}
+
+.cabby-hero-dots button.active {
+  width: 45px;
+
+  background: #39ff14;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 991px) {
+
+  .cabby-hero-arrow {
+    width: 42px;
+    height: 42px;
+
+    font-size: 29px;
+  }
+
+  .cabby-hero-prev {
+    left: 15px;
+  }
+
+  .cabby-hero-next {
+    right: 15px;
+  }
+
+  .cabby-hero-content {
+    max-width: 680px;
+  }
+
+  .cabby-hero-content h1 {
+    font-size: 48px;
+  }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
 
 @media (max-width: 768px) {
 
   .cabby-hero {
     min-height: 500px;
-
-    background-position: center;
   }
 
   .cabby-hero-overlay {
@@ -3721,24 +3990,48 @@ main {
   }
 
   .cabby-hero-content {
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding: 50px 0 80px;
   }
 
   .cabby-hero-content h1 {
     font-size: 40px;
+
     line-height: 1.1;
+
     letter-spacing: -0.8px;
   }
 
   .cabby-hero-content p {
     font-size: 16px;
+
     line-height: 1.6;
+  }
+
+  .cabby-hero-arrow {
+    top: auto;
+
+    bottom: 22px;
+
+    width: 36px;
+    height: 36px;
+
+    font-size: 25px;
+  }
+
+  .cabby-hero-prev {
+    left: 15px;
+  }
+
+  .cabby-hero-next {
+    right: 15px;
   }
 
 }
 
-/* Small phones */
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
 
 @media (max-width: 480px) {
 
@@ -3750,13 +4043,39 @@ main {
     min-height: 470px;
   }
 
+  .cabby-hero-content {
+    padding: 40px 0 85px;
+  }
+
+  .cabby-hero-category {
+    font-size: 10px;
+
+    padding: 6px 10px;
+
+    margin-bottom: 15px;
+  }
+
   .cabby-hero-content h1 {
-    font-size: 34px;
+    font-size: 32px;
+
+    line-height: 1.1;
+  }
+
+  .cabby-hero-content p {
+    font-size: 15px;
+
+    line-height: 1.6;
+
+    margin-bottom: 25px;
   }
 
   .cabby-primary-btn,
   .cabby-secondary-btn {
     width: 100%;
+  }
+
+  .cabby-hero-arrow {
+    display: none;
   }
 
 }
