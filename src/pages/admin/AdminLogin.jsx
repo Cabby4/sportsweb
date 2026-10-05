@@ -1,3 +1,6 @@
+const API_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:4001/api";
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -26,16 +29,14 @@ const AdminLogin = () => {
     setError("");
 
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL || "http://localhost:4001"}/api/admin/login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+
+      const response = await fetch(`${API_URL}/auth/login`, {
+         method: "POST",
+         headers: {
+         "Content-Type": "application/json",
+           },
+         body: JSON.stringify(formData),
+         });
 
       const data = await response.json();
 
