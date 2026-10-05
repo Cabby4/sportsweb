@@ -6,6 +6,7 @@ import LatestNews from "../components/LatestNews";
 import TrendingNews from "../components/TrendingNews";
 import Fixtures from "../components/Fixtures";
 import Results from "../components/Results";
+import LatestTransfers from "../components/LatestTransfers";
 
 const Home = () => {
   return (
@@ -21,6 +22,8 @@ const Home = () => {
       <Fixtures />
 
       <Results />
+
+      <LatestTransfers />
 
       <section className="home-final-cta">
         <div className="container">

@@ -1,281 +1,191 @@
-
-// import { useState } from "react";
-
-// function FixturesPage() {
-//   const [selectedCompetition, setSelectedCompetition] = useState("All");
-
-//   const fixtures = [
-//     {
-//       id: 1,
-//       competition: "Premier League",
-//       date: "Saturday, 03 October",
-//       time: "15:00",
-//       home: "Chelsea",
-//       away: "Arsenal",
-//     },
-//     {
-//       id: 2,
-//       competition: "La Liga",
-//       date: "Saturday, 03 October",
-//       time: "18:30",
-//       home: "Barcelona",
-//       away: "Real Madrid",
-//     },
-//     {
-//       id: 3,
-//       competition: "Premier League",
-//       date: "Sunday, 04 October",
-//       time: "16:30",
-//       home: "Liverpool",
-//       away: "Manchester City",
-//     },
-//     {
-//       id: 4,
-//       competition: "Serie A",
-//       date: "Sunday, 04 October",
-//       time: "19:45",
-//       home: "Inter Milan",
-//       away: "AC Milan",
-//     },
-//     {
-//       id: 5,
-//       competition: "Champions League",
-//       date: "Tuesday, 06 October",
-//       time: "20:00",
-//       home: "Bayern Munich",
-//       away: "Liverpool",
-//     },
-//     {
-//       id: 6,
-//       competition: "La Liga",
-//       date: "Wednesday, 07 October",
-//       time: "20:00",
-//       home: "Atletico Madrid",
-//       away: "Sevilla",
-//     },
-//   ];
-
-//   const competitions = [
-//     "All",
-//     "Premier League",
-//     "La Liga",
-//     "Serie A",
-//     "Champions League",
-//   ];
-
-//   const filteredFixtures =
-//     selectedCompetition === "All"
-//       ? fixtures
-//       : fixtures.filter(
-//           (fixture) =>
-//             fixture.competition === selectedCompetition
-//         );
-
-//   return (
-//     <section className="fixtures-page">
-
-//       <div className="page-title">
-//         <span>MATCH CENTRE</span>
-
-//         <h1>Fixtures</h1>
-
-//         <p>
-//           Check upcoming matches, kick-off times and competitions.
-//         </p>
-//       </div>
-
-//       <div className="competition-filters">
-//         {competitions.map((competition) => (
-//           <button
-//             key={competition}
-//             className={
-//               selectedCompetition === competition
-//                 ? "active"
-//                 : ""
-//             }
-//             onClick={() =>
-//               setSelectedCompetition(competition)
-//             }
-//           >
-//             {competition}
-//           </button>
-//         ))}
-//       </div>
-
-//       <div className="fixtures-page-list">
-//         {filteredFixtures.map((fixture) => (
-//           <article className="fixture-page-card" key={fixture.id}>
-
-//             <div className="fixture-competition">
-//               <span>{fixture.competition}</span>
-//               <small>{fixture.date}</small>
-//             </div>
-
-//             <div className="fixture-match">
-
-//               <div className="fixture-team">
-//                 <strong>{fixture.home}</strong>
-//               </div>
-
-//               <div className="fixture-time">
-//                 <span>{fixture.time}</span>
-//                 <small>Kick-off</small>
-//               </div>
-
-//               <div className="fixture-team">
-//                 <strong>{fixture.away}</strong>
-//               </div>
-
-//             </div>
-
-//             <button className="match-centre-btn">
-//               Match Centre
-//             </button>
-
-//           </article>
-//         ))}
-
-//         {filteredFixtures.length === 0 && (
-//           <p className="no-fixtures">
-//             No fixtures available for this competition.
-//           </p>
-//         )}
-//       </div>
-
-//     </section>
-//   );
-// }
-
-// export default FixturesPage;
-
-
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import matchData from "../data/matchData";
+import { getFixtures } from "../services/api";
 
 const FixturesPage = () => {
-  const upcomingMatches = matchData.filter(
-    (match) => match.status === "Upcoming"
-  );
+  const [fixtures, setFixtures] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchFixtures = async () => {
+      try {
+        const data = await getFixtures();
+
+        setFixtures(data.data || []);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFixtures();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="container py-5 text-center">
+        <h4>Loading fixtures...</h4>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="container py-5 text-center">
+        <h4 className="text-danger">{error}</h4>
+      </div>
+    );
+  }
 
   return (
-    <main className="fixtures-page">
-      {/* HERO */}
-      <section className="fixtures-page-hero">
-        <div className="container">
-          <div className="fixtures-page-hero-content">
-            <span className="fixtures-page-label">CABBY SPORTS</span>
+    <div className="container py-5">
 
-            <h1>Football Fixtures</h1>
+      <div className="mb-4">
+        <h1 className="fw-bold">Upcoming Fixtures</h1>
 
-            <p>
-              Stay updated with upcoming football fixtures,
-              match times, competitions and teams from around
-              the football world.
-            </p>
-          </div>
+        <p className="text-muted">
+          Stay updated with upcoming football matches.
+        </p>
+      </div>
+
+      {fixtures.length === 0 ? (
+        <div className="alert alert-info">
+          No upcoming fixtures available.
         </div>
-      </section>
+      ) : (
+        <div className="row g-4">
 
-      {/* FIXTURES */}
-      <section className="fixtures-page-section">
-        <div className="container">
-          <div className="cabby-section-header">
-            <div>
-              <span className="cabby-section-label">
-                MATCH CENTRE
-              </span>
+          {fixtures.map((fixture) => (
 
-              <h2>Upcoming Fixtures</h2>
-            </div>
-
-            <span className="fixtures-page-count">
-              {upcomingMatches.length} Matches
-            </span>
-          </div>
-
-          <div className="fixtures-page-list">
-            {upcomingMatches.map((match) => (
-              <div className="fixtures-page-card" key={match.id}>
-                {/* TOP */}
-                <div className="fixtures-page-card-top">
-                  <span className="fixtures-page-competition">
-                    {match.competition}
-                  </span>
-
-                  <span className="fixtures-page-status">
-                    UPCOMING
-                  </span>
-                </div>
-
-                {/* DATE */}
-                <div className="fixtures-page-date">
-                  <strong>{match.date}</strong>
-                  <span>{match.time}</span>
-                </div>
-
-                {/* TEAMS */}
-                <div className="fixtures-page-teams">
-                  <div className="fixtures-page-team">
-                    <div className="fixtures-page-badge">
-                      {match.home.charAt(0)}
-                    </div>
-
-                    <strong>{match.home}</strong>
-                  </div>
-
-                  <div className="fixtures-page-vs">
-                    VS
-                  </div>
-
-                  <div className="fixtures-page-team">
-                    <div className="fixtures-page-badge">
-                      {match.away.charAt(0)}
-                    </div>
-
-                    <strong>{match.away}</strong>
-                  </div>
-                </div>
-
-                {/* DETAILS */}
-                <Link
-                  to={`/matches/${match.id}`}
-                  className="fixtures-page-button"
-                >
-                  Match Details →
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="fixtures-page-cta-section">
-        <div className="container">
-          <div className="fixtures-page-cta">
-            <div>
-              <span>MATCH CENTRE</span>
-
-              <h2>
-                Never Miss a Football Match
-              </h2>
-
-              <p>
-                Follow upcoming fixtures and stay connected
-                with the biggest games.
-              </p>
-            </div>
-
-            <Link
-              to="/results"
-              className="fixtures-page-cta-button"
+            <div
+              className="col-12 col-md-6 col-lg-4"
+              key={fixture._id}
             >
-              View Recent Results →
-            </Link>
-          </div>
+
+              <div className="card h-100 shadow-sm border-0">
+
+                <div className="card-body">
+
+                  <div className="text-center mb-3">
+
+                    <span className="badge bg-success">
+                      {fixture.competition}
+                    </span>
+
+                  </div>
+
+                  {/* Teams */}
+                  <div className="row align-items-center text-center">
+
+                    {/* Home Team */}
+                    <div className="col-5">
+
+                      {fixture.homeTeam?.logo && (
+                        <img
+                          src={fixture.homeTeam.logo}
+                          alt={fixture.homeTeam.name}
+                          style={{
+                            width: "70px",
+                            height: "70px",
+                            objectFit: "contain",
+                          }}
+                        />
+                      )}
+
+                      <h6 className="fw-bold mt-2">
+                        {fixture.homeTeam?.name || "Home Team"}
+                      </h6>
+
+                    </div>
+
+                    {/* VS */}
+                    <div className="col-2">
+
+                      <span className="fw-bold text-muted">
+                        VS
+                      </span>
+
+                    </div>
+
+                    {/* Away Team */}
+                    <div className="col-5">
+
+                      {fixture.awayTeam?.logo && (
+                        <img
+                          src={fixture.awayTeam.logo}
+                          alt={fixture.awayTeam.name}
+                          style={{
+                            width: "70px",
+                            height: "70px",
+                            objectFit: "contain",
+                          }}
+                        />
+                      )}
+
+                      <h6 className="fw-bold mt-2">
+                        {fixture.awayTeam?.name || "Away Team"}
+                      </h6>
+
+                    </div>
+
+                  </div>
+
+                  <hr />
+
+                  {/* Match Date */}
+                  <div className="text-center">
+
+                    <p className="mb-1">
+                      <strong>Date</strong>
+                    </p>
+
+                    <p className="text-muted">
+                      {new Date(
+                        fixture.matchDate
+                      ).toLocaleString()}
+                    </p>
+
+                  </div>
+
+                  {/* Venue */}
+                  {fixture.venue && (
+                    <p className="text-center text-muted mb-2">
+                      📍 {fixture.venue}
+                    </p>
+                  )}
+
+                  {/* Matchweek */}
+                  {fixture.matchweek && (
+                    <p className="text-center text-muted">
+                      Matchweek {fixture.matchweek}
+                    </p>
+                  )}
+
+                  <div className="text-center mt-3">
+
+                    <Link
+                      to={`/matches/${fixture._id}`}
+                      className="btn btn-dark"
+                    >
+                      Match Details
+                    </Link>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          ))}
+
         </div>
-      </section>
-    </main>
+      )}
+
+    </div>
   );
 };
 

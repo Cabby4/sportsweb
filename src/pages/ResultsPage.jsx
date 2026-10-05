@@ -1,158 +1,197 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { getResults } from "../services/api";
 
-function ResultsPage() {
-  const [selectedCompetition, setSelectedCompetition] = useState("All");
+const ResultsPage = () => {
+  const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const results = [
-    {
-      id: 1,
-      competition: "Premier League",
-      date: "Saturday, 26 September",
-      home: "Manchester City",
-      away: "Liverpool",
-      homeScore: 2,
-      awayScore: 1,
-    },
-    {
-      id: 2,
-      competition: "La Liga",
-      date: "Saturday, 26 September",
-      home: "Barcelona",
-      away: "Real Madrid",
-      homeScore: 3,
-      awayScore: 2,
-    },
-    {
-      id: 3,
-      competition: "Premier League",
-      date: "Sunday, 27 September",
-      home: "Chelsea",
-      away: "Arsenal",
-      homeScore: 1,
-      awayScore: 1,
-    },
-    {
-      id: 4,
-      competition: "Serie A",
-      date: "Sunday, 27 September",
-      home: "Inter Milan",
-      away: "AC Milan",
-      homeScore: 2,
-      awayScore: 0,
-    },
-    {
-      id: 5,
-      competition: "Champions League",
-      date: "Tuesday, 29 September",
-      home: "Bayern Munich",
-      away: "Liverpool",
-      homeScore: 3,
-      awayScore: 1,
-    },
-    {
-      id: 6,
-      competition: "La Liga",
-      date: "Tuesday, 29 September",
-      home: "Atletico Madrid",
-      away: "Sevilla",
-      homeScore: 2,
-      awayScore: 2,
-    },
-  ];
+  useEffect(() => {
+    const fetchResults = async () => {
+      try {
+        const data = await getResults();
 
-  const competitions = [
-    "All",
-    "Premier League",
-    "La Liga",
-    "Serie A",
-    "Champions League",
-  ];
+        setResults(data.data || []);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const filteredResults =
-    selectedCompetition === "All"
-      ? results
-      : results.filter(
-          (result) =>
-            result.competition === selectedCompetition
-        );
+    fetchResults();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="container py-5 text-center">
+        <h4>Loading results...</h4>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="container py-5 text-center">
+        <h4 className="text-danger">{error}</h4>
+      </div>
+    );
+  }
 
   return (
-    <section className="results-page">
+    <div className="container py-5">
 
-      <div className="page-title">
-        <span>MATCH CENTRE</span>
+      <div className="mb-4">
+        <h1 className="fw-bold">Latest Results</h1>
 
-        <h1>Results</h1>
-
-        <p>
-          Check recent match results from major competitions.
+        <p className="text-muted">
+          Check the latest football match results.
         </p>
       </div>
 
-      <div className="competition-filters">
-        {competitions.map((competition) => (
-          <button
-            key={competition}
-            className={
-              selectedCompetition === competition
-                ? "active"
-                : ""
-            }
-            onClick={() =>
-              setSelectedCompetition(competition)
-            }
-          >
-            {competition}
-          </button>
-        ))}
-      </div>
+      {results.length === 0 ? (
+        <div className="alert alert-info">
+          No results available.
+        </div>
+      ) : (
+        <div className="row g-4">
 
-      <div className="results-page-list">
+          {results.map((result) => (
 
-        {filteredResults.map((result) => (
-          <article
-            className="result-page-card"
-            key={result.id}
-          >
-            <div className="result-competition">
-              <span>{result.competition}</span>
-              <small>{result.date}</small>
+            <div
+              className="col-12 col-md-6 col-lg-4"
+              key={result._id}
+            >
+
+              <div className="card h-100 shadow-sm border-0">
+
+                <div className="card-body">
+
+                  {/* Competition */}
+                  <div className="text-center mb-3">
+
+                    <span className="badge bg-dark">
+                      {result.competition}
+                    </span>
+
+                  </div>
+
+                  {/* Teams and Score */}
+                  <div className="row align-items-center text-center">
+
+                    {/* Home Team */}
+                    <div className="col-5">
+
+                      {result.homeTeam?.logo && (
+                        <img
+                          src={result.homeTeam.logo}
+                          alt={result.homeTeam.name}
+                          style={{
+                            width: "70px",
+                            height: "70px",
+                            objectFit: "contain",
+                          }}
+                        />
+                      )}
+
+                      <h6 className="fw-bold mt-2">
+                        {result.homeTeam?.name || "Home Team"}
+                      </h6>
+
+                    </div>
+
+                    {/* Score */}
+                    <div className="col-2">
+
+                      <h4 className="fw-bold mb-0">
+                        {result.homeScore}
+                        {" - "}
+                        {result.awayScore}
+                      </h4>
+
+                    </div>
+
+                    {/* Away Team */}
+                    <div className="col-5">
+
+                      {result.awayTeam?.logo && (
+                        <img
+                          src={result.awayTeam.logo}
+                          alt={result.awayTeam.name}
+                          style={{
+                            width: "70px",
+                            height: "70px",
+                            objectFit: "contain",
+                          }}
+                        />
+                      )}
+
+                      <h6 className="fw-bold mt-2">
+                        {result.awayTeam?.name || "Away Team"}
+                      </h6>
+
+                    </div>
+
+                  </div>
+
+                  <hr />
+
+                  {/* Date */}
+                  <div className="text-center">
+
+                    <p className="mb-1">
+                      <strong>Match Date</strong>
+                    </p>
+
+                    <p className="text-muted">
+                      {new Date(
+                        result.matchDate
+                      ).toLocaleString()}
+                    </p>
+
+                  </div>
+
+                  {/* Venue */}
+                  {result.venue && (
+                    <p className="text-center text-muted">
+                      📍 {result.venue}
+                    </p>
+                  )}
+
+                  {/* Status */}
+                  <div className="text-center mb-3">
+
+                    <span className="badge bg-success">
+                      {result.status}
+                    </span>
+
+                  </div>
+
+                  <div className="text-center">
+
+                    <Link
+                      to={`/results/${result._id}`}
+                      className="btn btn-dark"
+                    >
+                      View Result
+                    </Link>
+
+                  </div>
+
+                </div>
+
+              </div>
+
             </div>
 
-            <div className="result-match">
+          ))}
 
-              <div className="result-team">
-                <strong>{result.home}</strong>
-              </div>
+        </div>
+      )}
 
-              <div className="result-score">
-                <span>{result.homeScore}</span>
-                <b>-</b>
-                <span>{result.awayScore}</span>
-              </div>
-
-              <div className="result-team">
-                <strong>{result.away}</strong>
-              </div>
-
-            </div>
-
-            <button className="match-centre-btn">
-              Match Centre
-            </button>
-          </article>
-        ))}
-
-        {filteredResults.length === 0 && (
-          <p className="no-results">
-            No results available for this competition.
-          </p>
-        )}
-
-      </div>
-
-    </section>
+    </div>
   );
-}
+};
 
 export default ResultsPage;

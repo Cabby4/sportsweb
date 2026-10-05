@@ -1,19 +1,20 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getFixtureById } from "../services/api";
+import { getResultById } from "../services/api";
 
-const MatchDetails = () => {
+const ResultDetails = () => {
   const { id } = useParams();
 
-  const [fixture, setFixture] = useState(null);
+  const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const fetchFixture = async () => {
+    const fetchResult = async () => {
       try {
-        const data = await getFixtureById(id);
-        setFixture(data.data);
+        const data = await getResultById(id);
+
+        setResult(data.data);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -21,13 +22,13 @@ const MatchDetails = () => {
       }
     };
 
-    fetchFixture();
+    fetchResult();
   }, [id]);
 
   if (loading) {
     return (
       <div className="container py-5 text-center">
-        <h4>Loading match...</h4>
+        <h4>Loading result...</h4>
       </div>
     );
   }
@@ -37,20 +38,20 @@ const MatchDetails = () => {
       <div className="container py-5 text-center">
         <h4 className="text-danger">{error}</h4>
 
-        <Link to="/fixtures" className="btn btn-dark mt-3">
-          Back to Fixtures
+        <Link to="/results" className="btn btn-dark mt-3">
+          Back to Results
         </Link>
       </div>
     );
   }
 
-  if (!fixture) {
+  if (!result) {
     return (
       <div className="container py-5 text-center">
-        <h4>Match not found</h4>
+        <h4>Result not found</h4>
 
-        <Link to="/fixtures" className="btn btn-dark mt-3">
-          Back to Fixtures
+        <Link to="/results" className="btn btn-dark mt-3">
+          Back to Results
         </Link>
       </div>
     );
@@ -59,8 +60,8 @@ const MatchDetails = () => {
   return (
     <div className="container py-5">
 
-      <Link to="/fixtures" className="btn btn-outline-dark mb-4">
-        ← Back to Fixtures
+      <Link to="/results" className="btn btn-outline-dark mb-4">
+        ← Back to Results
       </Link>
 
       <div className="card border-0 shadow-sm">
@@ -70,77 +71,75 @@ const MatchDetails = () => {
           {/* Competition */}
           <div className="text-center mb-4">
 
-            <span className="badge bg-success px-3 py-2">
-              {fixture.competition}
+            <span className="badge bg-dark px-3 py-2">
+              {result.competition}
             </span>
 
-            {fixture.matchweek && (
-              <p className="text-muted mt-2 mb-0">
-                Matchweek {fixture.matchweek}
-              </p>
-            )}
+            <p className="text-muted mt-2">
+              {new Date(result.matchDate).toLocaleDateString()}
+            </p>
 
           </div>
 
           {/* Teams */}
           <div className="row align-items-center text-center">
 
-            {/* Home Team */}
+            {/* Home */}
             <div className="col-5">
 
-              {fixture.homeTeam?.logo && (
+              {result.homeTeam?.logo && (
                 <img
-                  src={fixture.homeTeam.logo}
-                  alt={fixture.homeTeam.name}
+                  src={result.homeTeam.logo}
+                  alt={result.homeTeam.name}
                   style={{
-                    width: "130px",
-                    height: "130px",
+                    width: "140px",
+                    height: "140px",
                     objectFit: "contain",
                   }}
                 />
               )}
 
               <h2 className="fw-bold mt-3">
-                {fixture.homeTeam?.name || "Home Team"}
+                {result.homeTeam?.name}
               </h2>
-
-              <p className="text-muted">
-                {fixture.homeTeam?.shortName || ""}
-              </p>
 
             </div>
 
-            {/* VS */}
+            {/* Score */}
             <div className="col-2">
 
-              <div className="display-6 fw-bold text-muted">
-                VS
+              <div className="display-5 fw-bold">
+                {result.homeScore}
+              </div>
+
+              <div className="text-muted fw-bold">
+                -
+              </div>
+
+              <div className="display-5 fw-bold">
+                {result.awayScore}
               </div>
 
             </div>
 
-            {/* Away Team */}
+            {/* Away */}
             <div className="col-5">
 
-              {fixture.awayTeam?.logo && (
+              {result.awayTeam?.logo && (
                 <img
-                  src={fixture.awayTeam.logo}
-                  alt={fixture.awayTeam.name}
+                  src={result.awayTeam.logo}
+                  alt={result.awayTeam.name}
                   style={{
-                    width: "130px",
-                    height: "130px",
+                    width: "140px",
+                    height: "140px",
                     objectFit: "contain",
                   }}
                 />
               )}
 
               <h2 className="fw-bold mt-3">
-                {fixture.awayTeam?.name || "Away Team"}
+                {result.awayTeam?.name}
               </h2>
-
-              <p className="text-muted">
-                {fixture.awayTeam?.shortName || ""}
-              </p>
 
             </div>
 
@@ -148,18 +147,18 @@ const MatchDetails = () => {
 
           <hr className="my-4" />
 
-          {/* Match Information */}
+          {/* Information */}
           <div className="row text-center">
 
             <div className="col-md-4 mb-3">
 
               <h6 className="fw-bold">
-                Date & Time
+                Date
               </h6>
 
-              <p className="text-muted mb-0">
+              <p className="text-muted">
                 {new Date(
-                  fixture.matchDate
+                  result.matchDate
                 ).toLocaleString()}
               </p>
 
@@ -171,8 +170,8 @@ const MatchDetails = () => {
                 Venue
               </h6>
 
-              <p className="text-muted mb-0">
-                {fixture.venue || "Venue not available"}
+              <p className="text-muted">
+                {result.venue || "Not available"}
               </p>
 
             </div>
@@ -184,23 +183,22 @@ const MatchDetails = () => {
               </h6>
 
               <span className="badge bg-success">
-                {fixture.status}
+                {result.status}
               </span>
 
             </div>
 
           </div>
 
-          {/* Description */}
-          {fixture.description && (
-            <div className="mt-4 pt-4 border-top">
+          {result.description && (
+            <div className="border-top pt-4 mt-3">
 
               <h5 className="fw-bold">
-                Match Preview
+                Match Report
               </h5>
 
               <p className="text-muted">
-                {fixture.description}
+                {result.description}
               </p>
 
             </div>
@@ -214,4 +212,4 @@ const MatchDetails = () => {
   );
 };
 
-export default MatchDetails;
+export default ResultDetails;

@@ -1,68 +1,26 @@
-// import { Link } from "react-router-dom";
-// import matchData from "../data/matchData";
-
-// const Fixtures = () => {
-//   const fixtures = matchData.filter(
-//     (match) => match.status === "Upcoming"
-//   );
-
-//   return (
-//     <section className="matches-section">
-//       <div className="matches-heading">
-//         <div>
-//           <span>UPCOMING</span>
-//           <h2>Fixtures</h2>
-//         </div>
-
-//         <Link to="/fixtures">View All Fixtures →</Link>
-//       </div>
-
-//       <div className="matches-list">
-//         {fixtures.slice(0, 3).map((fixture) => (
-//           <div className="match-card" key={fixture.id}>
-//             <div className="match-competition">
-//               {fixture.competition}
-//             </div>
-
-//             <div className="match-date">
-//               <strong>{fixture.date}</strong>
-//               <span>{fixture.time}</span>
-//             </div>
-
-//             <div className="match-teams">
-//               <div className="match-team">
-//                 <span>{fixture.home}</span>
-//               </div>
-
-//               <div className="vs">VS</div>
-
-//               <div className="match-team">
-//                 <span>{fixture.away}</span>
-//               </div>
-//             </div>
-
-//             <Link
-//               to={`/matches/${fixture.id}`}
-//               className="match-centre-btn"
-//             >
-//               Match Centre
-//             </Link>
-//           </div>
-//         ))}
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default Fixtures;
-
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import matchData from "../data/matchData";
+import { getFixtures } from "../services/api";
 
 const Fixtures = () => {
-  const upcomingMatches = matchData
-    .filter((match) => match.status === "Upcoming")
-    .slice(0, 3);
+  const [upcomingMatches, setUpcomingMatches] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchFixtures = async () => {
+      try {
+        const data = await getFixtures();
+
+        setUpcomingMatches((data.data || []).slice(0, 3));
+      } catch (error) {
+        console.error("Failed to fetch fixtures:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFixtures();
+  }, []);
 
   return (
     <section className="cabby-fixtures-section">
@@ -70,7 +28,6 @@ const Fixtures = () => {
 
         {/* Header */}
         <div className="cabby-section-header">
-
           <div>
             <span className="cabby-section-label">
               MATCH CENTER
@@ -85,79 +42,144 @@ const Fixtures = () => {
           >
             View All Fixtures <span>→</span>
           </Link>
-
         </div>
+
+        {/* Loading */}
+        {loading && (
+          <div className="text-center py-4">
+            <p>Loading fixtures...</p>
+          </div>
+        )}
+
+        {/* Empty State */}
+        {!loading && upcomingMatches.length === 0 && (
+          <div className="text-center py-4">
+            <p>No upcoming fixtures available.</p>
+          </div>
+        )}
 
         {/* Fixtures */}
-        <div className="cabby-fixtures-list">
+        {!loading && upcomingMatches.length > 0 && (
+          <div className="cabby-fixtures-list">
 
-          {upcomingMatches.map((match) => (
+            {upcomingMatches.map((match) => {
+              const matchDate = new Date(match.matchDate);
 
-            <div
-              className="cabby-fixture-card"
-              key={match.id}
-            >
+              return (
+                <div
+                  className="cabby-fixture-card"
+                  key={match._id}
+                >
 
-              {/* Competition */}
-              <div className="cabby-fixture-top">
+                  {/* Competition */}
+                  <div className="cabby-fixture-top">
 
-                <span className="cabby-fixture-competition">
-                  {match.competition}
-                </span>
+                    <span className="cabby-fixture-competition">
+                      {match.competition}
+                    </span>
 
-                <span className="cabby-fixture-status">
-                  UPCOMING
-                </span>
+                    <span className="cabby-fixture-status">
+                      {match.status?.toUpperCase()}
+                    </span>
 
-              </div>
-
-              {/* Date & Time */}
-              <div className="cabby-fixture-date">
-
-                <strong>{match.date}</strong>
-
-                <span>{match.time}</span>
-
-              </div>
-
-              {/* Teams */}
-              <div className="cabby-fixture-teams">
-
-                <div className="cabby-team">
-                  <div className="cabby-team-badge">
-                    {match.home.charAt(0)}
                   </div>
 
-                  <strong>{match.home}</strong>
-                </div>
+                  {/* Date & Time */}
+                  <div className="cabby-fixture-date">
 
-                <div className="cabby-vs">
-                  VS
-                </div>
+                    <strong>
+                      {matchDate.toLocaleDateString()}
+                    </strong>
 
-                <div className="cabby-team">
-                  <div className="cabby-team-badge">
-                    {match.away.charAt(0)}
+                    <span>
+                      {matchDate.toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </span>
+
                   </div>
 
-                  <strong>{match.away}</strong>
+                  {/* Teams */}
+                  <div className="cabby-fixture-teams">
+
+                    {/* Home Team */}
+                    <div className="cabby-team">
+
+                      <div className="cabby-team-badge">
+
+                        {match.homeTeam?.logo ? (
+                          <img
+                            src={match.homeTeam.logo}
+                            alt={match.homeTeam.name}
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                              objectFit: "contain",
+                            }}
+                          />
+                        ) : (
+                          match.homeTeam?.shortName?.charAt(0) ||
+                          match.homeTeam?.name?.charAt(0)
+                        )}
+
+                      </div>
+
+                      <strong>
+                        {match.homeTeam?.name || "Home Team"}
+                      </strong>
+
+                    </div>
+
+                    {/* VS */}
+                    <div className="cabby-vs">
+                      VS
+                    </div>
+
+                    {/* Away Team */}
+                    <div className="cabby-team">
+
+                      <div className="cabby-team-badge">
+
+                        {match.awayTeam?.logo ? (
+                          <img
+                            src={match.awayTeam.logo}
+                            alt={match.awayTeam.name}
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                              objectFit: "contain",
+                            }}
+                          />
+                        ) : (
+                          match.awayTeam?.shortName?.charAt(0) ||
+                          match.awayTeam?.name?.charAt(0)
+                        )}
+
+                      </div>
+
+                      <strong>
+                        {match.awayTeam?.name || "Away Team"}
+                      </strong>
+
+                    </div>
+
+                  </div>
+
+                  {/* Match Link */}
+                  <Link
+                    to={`/matches/${match._id}`}
+                    className="cabby-match-button"
+                  >
+                    Match Details →
+                  </Link>
+
                 </div>
+              );
+            })}
 
-              </div>
-
-              {/* Match Link */}
-              <Link
-                to={`/matches/${match.id}`}
-                className="cabby-match-button"
-              >
-                Match Details →
-              </Link>
-
-            </div>
-
-          ))}
-
-        </div>
+          </div>
+        )}
 
       </div>
     </section>

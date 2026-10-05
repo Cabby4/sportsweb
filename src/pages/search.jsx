@@ -1,478 +1,257 @@
-// import { useState } from "react";
-// import { Link } from "react-router-dom";
-// import newsData from "../data/newsData";
-// import TeamData from "../data/TeamData";
-
-// const Search = () => {
-//   const [searchTerm, setSearchTerm] = useState("");
-
-//   const search = searchTerm.toLowerCase().trim();
-
-//   const filteredNews = newsData.filter((article) =>
-//     article.title.toLowerCase().includes(search) ||
-//     article.category.toLowerCase().includes(search)
-//   );
-
-//   const filteredTeams = TeamData.filter((team) =>
-//     team.name.toLowerCase().includes(search) ||
-//     team.league.toLowerCase().includes(search)
-//   );
-
-//   return (
-//     <main className="search-page">
-//       <div className="search-header">
-//         <h1>Search Cabby Sports</h1>
-//         <p>Find the latest news, teams and sports updates.</p>
-
-//         <input
-//           type="text"
-//           placeholder="Search news or teams..."
-//           value={searchTerm}
-//           onChange={(e) => setSearchTerm(e.target.value)}
-//           autoFocus
-//         />
-//       </div>
-
-//       {searchTerm.trim() === "" ? (
-//         <div className="search-message">
-//           <h2>What are you looking for?</h2>
-//           <p>Search for a team, news article or category.</p>
-//         </div>
-//       ) : (
-//         <>
-//           {/* News Results */}
-//           <section className="search-section">
-//             <h2>News</h2>
-
-//             {filteredNews.length > 0 ? (
-//               <div className="search-results">
-//                 {filteredNews.map((article) => (
-//                   <Link
-//                     to={`/news/${article.id}`}
-//                     className="search-result-card"
-//                     key={article.id}
-//                   >
-//                     <img src={article.image} alt={article.title} />
-
-//                     <div>
-//                       <span>{article.category}</span>
-//                       <h3>{article.title}</h3>
-//                       <p>{article.date}</p>
-//                     </div>
-//                   </Link>
-//                 ))}
-//               </div>
-//             ) : (
-//               <p className="no-results">No news found.</p>
-//             )}
-//           </section>
-
-//           {/* Team Results */}
-//           <section className="search-section">
-//             <h2>Teams</h2>
-
-//             {filteredTeams.length > 0 ? (
-//               <div className="search-team-results">
-//                 {filteredTeams.map((team) => (
-//                   <Link
-//                     to={`/teams/${team.id}`}
-//                     className="search-team-card"
-//                     key={team.id}
-//                   >
-//                     <img src={team.image} alt={team.name} />
-
-//                     <div>
-//                       <h3>{team.name}</h3>
-//                       <p>{team.league}</p>
-//                     </div>
-//                   </Link>
-//                 ))}
-//               </div>
-//             ) : (
-//               <p className="no-results">No teams found.</p>
-//             )}
-//           </section>
-//         </>
-//       )}
-//     </main>
-//   );
-// };
-
-// export default Search;
-
-import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
-
-import newsData from "../data/newsData";
-import teamData from "../data/TeamData";
-import matchData from "../data/matchData";
-import transferData from "../data/transferData";
+import { useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import { searchNews, searchTeams } from "../services/api";
 
 const Search = () => {
-  const [search, setSearch] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const searchValue = search.trim().toLowerCase();
+  const initialQuery = searchParams.get("q") || "";
 
-  const results = useMemo(() => {
-    if (!searchValue) {
-      return {
-        news: [],
-        teams: [],
-        matches: [],
-        transfers: [],
-      };
+  const [query, setQuery] = useState(initialQuery);
+  const [news, setNews] = useState([]);
+  const [teams, setTeams] = useState([]);
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSearch = async (event) => {
+    event.preventDefault();
+
+    const trimmedQuery = query.trim();
+
+    if (!trimmedQuery) {
+      setNews([]);
+      setTeams([]);
+      setError("Please enter something to search.");
+      return;
     }
 
-    const news = newsData.filter((article) =>
-      [
-        article.title,
-        article.category,
-        article.author,
-        ...(article.content || []),
-      ]
-        .join(" ")
-        .toLowerCase()
-        .includes(searchValue)
-    );
+    try {
+      setLoading(true);
+      setError("");
 
-    const teams = teamData.filter((team) =>
-      [
-        team.name,
-        team.league,
-        team.country,
-        team.stadium,
-      ]
-        .join(" ")
-        .toLowerCase()
-        .includes(searchValue)
-    );
+      setSearchParams({ q: trimmedQuery });
 
-    const matches = matchData.filter((match) =>
-      [
-        match.competition,
-        match.home,
-        match.away,
-        match.date,
-      ]
-        .join(" ")
-        .toLowerCase()
-        .includes(searchValue)
-    );
+      const [newsResponse, teamsResponse] = await Promise.all([
+        searchNews(trimmedQuery),
+        searchTeams(trimmedQuery),
+      ]);
 
-    const transfers = transferData.filter((transfer) =>
-      [
-        transfer.player,
-        transfer.from,
-        transfer.to,
-        transfer.status,
-      ]
-        .join(" ")
-        .toLowerCase()
-        .includes(searchValue)
-    );
-
-    return {
-      news,
-      teams,
-      matches,
-      transfers,
-    };
-  }, [searchValue]);
-
-  const totalResults =
-    results.news.length +
-    results.teams.length +
-    results.matches.length +
-    results.transfers.length;
+      setNews(newsResponse.data || []);
+      setTeams(teamsResponse.data || []);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <main className="search-page">
+    <div className="container py-5">
 
-      {/* HERO */}
-      <section className="search-page-hero">
-        <div className="container">
-          <div className="search-page-hero-content">
-            <span className="search-page-label">
-              CABBY SPORTS
-            </span>
+      <div className="mb-4">
+        <h1 className="fw-bold">
+          Search Cabby Sports
+        </h1>
 
-            <h1>Search for Sports Stories</h1>
+        <p className="text-muted">
+          Search for football news and teams.
+        </p>
+      </div>
 
-            <p>
-              Find football news, teams, fixtures,
-              results and transfer stories.
-            </p>
-          </div>
+      {/* Search Form */}
+      <form
+        onSubmit={handleSearch}
+        className="row g-2 mb-5"
+      >
+        <div className="col-md-10">
+
+          <input
+            type="text"
+            className="form-control form-control-lg"
+            placeholder="Search news or teams..."
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+          />
+
         </div>
-      </section>
 
-      {/* SEARCH */}
-      <section className="search-page-section">
-        <div className="container">
+        <div className="col-md-2">
 
-          <div className="search-box-large">
-            <span>🔍</span>
+          <button
+            type="submit"
+            className="btn btn-dark btn-lg w-100"
+            disabled={loading}
+          >
+            {loading ? "Searching..." : "Search"}
+          </button>
 
-            <input
-              type="text"
-              placeholder="Search news, teams, players, clubs..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              autoFocus
-            />
+        </div>
+      </form>
 
-            {search && (
-              <button
-                type="button"
-                onClick={() => setSearch("")}
-                aria-label="Clear search"
-              >
-                ✕
-              </button>
-            )}
-          </div>
+      {/* Error */}
+      {error && (
+        <div className="alert alert-danger">
+          {error}
+        </div>
+      )}
 
-          {/* EMPTY STATE */}
-          {!searchValue && (
-            <div className="search-empty">
-              <div className="search-empty-icon">
-                🔎
-              </div>
+      {/* Results */}
+      {!loading && !error && query.trim() && (
+        <>
+          {/* News */}
+          <section className="mb-5">
 
-              <h2>What are you looking for?</h2>
+            <div className="d-flex justify-content-between align-items-center mb-3">
+              <h3 className="fw-bold">
+                News
+              </h3>
 
-              <p>
-                Search for a team, player, football story,
-                transfer or match.
-              </p>
+              <span className="text-muted">
+                {news.length} result{news.length !== 1 ? "s" : ""}
+              </span>
             </div>
-          )}
 
-          {/* RESULTS */}
-          {searchValue && (
-            <>
-              <div className="search-results-header">
-                <div>
-                  <span className="cabby-section-label">
-                    SEARCH RESULTS
-                  </span>
+            {news.length === 0 ? (
+              <p className="text-muted">
+                No news found.
+              </p>
+            ) : (
+              <div className="row g-4">
 
-                  <h2>
-                    Results for "{search}"
-                  </h2>
-                </div>
-
-                <span className="search-results-count">
-                  {totalResults}{" "}
-                  {totalResults === 1
-                    ? "Result"
-                    : "Results"}
-                </span>
-              </div>
-
-              {/* NEWS */}
-              {results.news.length > 0 && (
-                <section className="search-result-section">
-                  <div className="search-result-title">
-                    <h3>Latest News</h3>
-                    <span>
-                      {results.news.length}
-                    </span>
-                  </div>
-
-                  <div className="search-news-grid">
-                    {results.news.map((article) => (
-                      <Link
-                        to={`/news/${article.id}`}
-                        className="search-news-card"
-                        key={article.id}
-                      >
-                        <div className="search-news-image">
-                          <img
-                            src={article.image}
-                            alt={article.title}
-                          />
-                        </div>
-
-                        <div className="search-news-content">
-                          <span>
-                            {article.category}
-                          </span>
-
-                          <h4>{article.title}</h4>
-
-                          <small>
-                            {article.date}
-                          </small>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </section>
-              )}
-
-              {/* TEAMS */}
-              {results.teams.length > 0 && (
-                <section className="search-result-section">
-                  <div className="search-result-title">
-                    <h3>Teams</h3>
-                    <span>
-                      {results.teams.length}
-                    </span>
-                  </div>
-
-                  <div className="search-teams-grid">
-                    {results.teams.map((team) => (
-                      <Link
-                        to={`/teams/${team.id}`}
-                        className="search-team-card"
-                        key={team.id}
-                      >
-                        <div className="search-team-logo">
-                          {team.logo}
-                        </div>
-
-                        <div>
-                          <h4>{team.name}</h4>
-
-                          <p>
-                            {team.league}
-                          </p>
-                        </div>
-
-                        <span>→</span>
-                      </Link>
-                    ))}
-                  </div>
-                </section>
-              )}
-
-              {/* MATCHES */}
-              {results.matches.length > 0 && (
-                <section className="search-result-section">
-                  <div className="search-result-title">
-                    <h3>Matches</h3>
-                    <span>
-                      {results.matches.length}
-                    </span>
-                  </div>
-
-                  <div className="search-matches-list">
-                    {results.matches.map((match) => (
-                      <Link
-                        to={`/matches/${match.id}`}
-                        className="search-match-card"
-                        key={match.id}
-                      >
-                        <div>
-                          <span>
-                            {match.competition}
-                          </span>
-
-                          <small>
-                            {match.date} • {match.time}
-                          </small>
-                        </div>
-
-                        <strong>
-                          {match.home}
-                          <b> vs </b>
-                          {match.away}
-                        </strong>
-
-                        <span className="search-match-status">
-                          {match.status}
-                        </span>
-                      </Link>
-                    ))}
-                  </div>
-                </section>
-              )}
-
-              {/* TRANSFERS */}
-              {results.transfers.length > 0 && (
-                <section className="search-result-section">
-                  <div className="search-result-title">
-                    <h3>Transfers</h3>
-                    <span>
-                      {results.transfers.length}
-                    </span>
-                  </div>
-
-                  <div className="search-transfers-list">
-                    {results.transfers.map((transfer) => (
-                      <div
-                        className="search-transfer-card"
-                        key={transfer.id}
-                      >
-                        <div className="search-transfer-player">
-                          <div>
-                            {transfer.player.charAt(0)}
-                          </div>
-
-                          <strong>
-                            {transfer.player}
-                          </strong>
-                        </div>
-
-                        <div className="search-transfer-route">
-                          <span>
-                            {transfer.from}
-                          </span>
-
-                          <b>→</b>
-
-                          <span>
-                            {transfer.to}
-                          </span>
-                        </div>
-
-                        <strong className="search-transfer-fee">
-                          {transfer.fee}
-                        </strong>
-
-                        <span
-                          className={`search-transfer-status ${
-                            transfer.status ===
-                            "Completed"
-                              ? "completed"
-                              : "rumour"
-                          }`}
-                        >
-                          {transfer.status}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              )}
-
-              {/* NO RESULTS */}
-              {totalResults === 0 && (
-                <div className="search-no-results">
-                  <div>😕</div>
-
-                  <h2>No results found</h2>
-
-                  <p>
-                    We couldn't find anything matching
-                    "{search}".
-                  </p>
-
-                  <button
-                    type="button"
-                    onClick={() => setSearch("")}
+                {news.map((item) => (
+                  <div
+                    className="col-md-6 col-lg-4"
+                    key={item._id}
                   >
-                    Clear Search
-                  </button>
-                </div>
-              )}
-            </>
-          )}
 
-        </div>
-      </section>
-    </main>
+                    <div className="card h-100 shadow-sm">
+
+                      {item.image && (
+                        <img
+                          src={item.image}
+                          alt={item.title}
+                          className="card-img-top"
+                          style={{
+                            height: "200px",
+                            objectFit: "cover",
+                          }}
+                        />
+                      )}
+
+                      <div className="card-body">
+
+                        <span className="badge bg-success mb-2">
+                          {item.category}
+                        </span>
+
+                        <h5 className="fw-bold">
+                          {item.title}
+                        </h5>
+
+                        <p className="text-muted">
+                          {item.summary}
+                        </p>
+
+                        <Link
+                          to={`/news/${item._id}`}
+                          className="btn btn-dark"
+                        >
+                          Read More
+                        </Link>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+                ))}
+
+              </div>
+            )}
+
+          </section>
+
+          {/* Teams */}
+          <section>
+
+            <div className="d-flex justify-content-between align-items-center mb-3">
+              <h3 className="fw-bold">
+                Teams
+              </h3>
+
+              <span className="text-muted">
+                {teams.length} result{teams.length !== 1 ? "s" : ""}
+              </span>
+            </div>
+
+            {teams.length === 0 ? (
+              <p className="text-muted">
+                No teams found.
+              </p>
+            ) : (
+              <div className="row g-4">
+
+                {teams.map((team) => (
+                  <div
+                    className="col-12 col-sm-6 col-lg-3"
+                    key={team._id}
+                  >
+
+                    <div className="card h-100 shadow-sm text-center">
+
+                      <div className="pt-4">
+
+                        {team.logo ? (
+                          <img
+                            src={team.logo}
+                            alt={team.name}
+                            style={{
+                              width: "90px",
+                              height: "90px",
+                              objectFit: "contain",
+                            }}
+                          />
+                        ) : (
+                          <div>
+                            No Logo
+                          </div>
+                        )}
+
+                      </div>
+
+                      <div className="card-body">
+
+                        <h5 className="fw-bold">
+                          {team.name}
+                        </h5>
+
+                        <p className="text-muted mb-2">
+                          {team.league}
+                        </p>
+
+                        <Link
+                          to={`/teams/${team._id}`}
+                          className="btn btn-dark"
+                        >
+                          View Team
+                        </Link>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+                ))}
+
+              </div>
+            )}
+
+          </section>
+        </>
+      )}
+
+    </div>
   );
 };
 

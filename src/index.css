@@ -4080,6 +4080,98 @@ main {
 
 }
 
+
+/* ================================
+   MOBILE HERO FIX
+================================ */
+
+@media (max-width: 600px) {
+  .cabby-hero {
+    min-height: 620px;
+  }
+
+  .cabby-hero-overlay {
+    min-height: 620px;
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.35),
+        rgba(0, 0, 0, 0.78)
+      );
+  }
+
+  .cabby-hero-background {
+    inset: 0;
+    background-size: cover;
+    background-position: center center;
+    transform: scale(1);
+  }
+
+  .cabby-hero-background.active {
+    transform: scale(1.06);
+  }
+
+  .cabby-hero-content {
+    padding: 100px 0 70px;
+  }
+
+  .cabby-hero-text {
+    max-width: 100%;
+  }
+
+  .cabby-hero-text h1 {
+    font-size: 36px;
+    line-height: 1.08;
+  }
+
+  .cabby-hero-text p {
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 100%;
+  }
+
+  .cabby-hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .cabby-primary-btn,
+  .cabby-secondary-btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .cabby-hero-arrow {
+    width: 38px;
+    height: 38px;
+    font-size: 28px;
+  }
+
+  .cabby-hero-prev {
+    left: 10px;
+  }
+
+  .cabby-hero-next {
+    right: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .cabby-hero-background:nth-child(1) {
+    background-position: 55% center;
+  }
+
+  .cabby-hero-background:nth-child(2) {
+    background-position: 50% center;
+  }
+
+  .cabby-hero-background:nth-child(3) {
+    background-position: 50% center;
+  }
+}
+
 /* =================================
    CABBYS SPORTS LOGO
 ================================= */
