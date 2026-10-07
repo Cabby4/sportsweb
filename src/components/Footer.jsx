@@ -108,7 +108,7 @@ const Footer = () => {
 
             <div className="footer-email">
               ✉
-              <span>info@cabbysports.com</span>
+              <span>cabbysports4@gmail.com</span>
             </div>
 
           </div>
