@@ -88,19 +88,19 @@ const Footer = () => {
 
             <div className="footer-social-icons">
 
-              <a href="#" aria-label="Facebook">
+              <a href="https://www.facebook.com/profile.php?id=100091353158880" aria-label="Facebook">
                 f
               </a>
 
-              <a href="#" aria-label="X">
+              <a href="https://x.com/cabbysports_1" aria-label="X">
                 X
               </a>
 
-              <a href="#" aria-label="Instagram">
+              <a href="" aria-label="Instagram">
                 ◎
               </a>
 
-              <a href="#" aria-label="YouTube">
+              <a href="https://youtube.com/@cabbysports1?si=jpwJb2hEfXAGosO7" aria-label="YouTube">
                 ▶
               </a>
 
