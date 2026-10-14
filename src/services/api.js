@@ -1,27 +1,30 @@
 const API_URL =
   import.meta.env.VITE_API_URL || "http://localhost:4001/api";
 
+
+let newsRequest = null;
+
 export const getNews = async () => {
-  try {
-    const response = await fetch(`${API_URL}/news`);
+  if (!newsRequest) {
+    newsRequest = fetch(`${API_URL}/news`)
+      .then(async (response) => {
+        const data = await response.json();
 
-    console.log("News API status:", response.status);
+        if (!response.ok) {
+          throw new Error(
+            data.message || "Failed to fetch news"
+          );
+        }
 
-    const data = await response.json();
-
-    console.log("News API response:", JSON.stringify(data, null, 2));
-
-    if (!response.ok) {
-      throw new Error(data.message || "Failed to fetch news");
-    }
-
-    return data;
-  } catch (error) {
-    console.error("News API error:", error);
-    throw error;
+        return data;
+      })
+      .finally(() => {
+        newsRequest = null;
+      });
   }
-};
 
+  return newsRequest;
+};
 
 export const getNewsById = async (id) => {
   const response = await fetch(`${API_URL}/news/${id}`);
@@ -163,8 +166,6 @@ export const createNews = async (newsData) => {
   });
 
   const data = await response.json();
-
-  console.log("Create news response:", data);
 
   if (!response.ok) {
     throw new Error(data.message || "Failed to create news");
