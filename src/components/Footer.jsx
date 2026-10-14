@@ -18,7 +18,7 @@ const Footer = () => {
             <Link to="/" className="cabby-footer-brand-link">
 
               <img
-                src="/cabby-sports-logo.png"
+                src="/Main Logo.jpeg"
                 alt="Cabby Sports"
                 className="cabby-footer-logo"
               />

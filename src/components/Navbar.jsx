@@ -34,7 +34,7 @@ const Navbar = () => {
             onClick={closeMenu}
           >
             <img
-              src="/cabby-sports-logo.png"
+              src="/Main Logo.jpeg"
               alt="Cabby Sports"
               className="cabby-brand-logo"
             />
