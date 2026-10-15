@@ -5,7 +5,7 @@ let newsRequest = null;
 
 export const getNews = async () => {
   if (!newsRequest) {
-    newsRequest = fetch(`${VITE_API_URL}/news`)
+    newsRequest = fetch(`${API_URL}api/news`)
       .then(async (response) => {
         const data = await response.json();
 
