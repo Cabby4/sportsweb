@@ -1,6 +1,12 @@
 
-
 import { Link } from "react-router-dom";
+
+import {
+  FaFacebook,
+  FaInstagram,
+  FaYoutube,
+} from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   return (
@@ -88,21 +94,25 @@ const Footer = () => {
 
             <div className="footer-social-icons">
 
-              <a href="https://www.facebook.com/profile.php?id=100091353158880" aria-label="Facebook">
-                f
-              </a>
+                      <div className="social-icons">
 
-              <a href="https://x.com/cabbysports_1" aria-label="X">
-                X
-              </a>
+            <a href="https://www.facebook.com/profile.php?id=100091353158880" aria-label="Facebook">
+              <FaFacebook className="facebook-icon" />
+            </a>
 
-              <a href="" aria-label="Instagram">
-                ◎
-              </a>
+            <a href="https://instagram.com/YOUR_PAGE" aria-label="Instagram">
+              <FaInstagram className="instagram-icon" />
+            </a>
 
-              <a href="https://youtube.com/@cabbysports1?si=jpwJb2hEfXAGosO7" aria-label="YouTube">
-                ▶
-              </a>
+            <a href="https://x.com/cabbysports_1" aria-label="X">
+              <FaXTwitter className="x-icon" />
+            </a>
+
+            <a href="https://youtube.com/@cabbysports1?si=jpwJb2hEfXAGosO7" aria-label="YouTube">
+              <FaYoutube className="youtube-icon" />
+            </a>
+
+          </div>
 
             </div>
 
