@@ -1,11 +1,13 @@
-
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4001";
+const API_URL = (
+  import.meta.env.VITE_API_URL ||
+  "https://cabby-sports-api.onrender.com/api"
+).replace(/\/+$/, "");
 
 let newsRequest = null;
 
 export const getNews = async () => {
   if (!newsRequest) {
-    newsRequest = fetch(`${API_URL}api/news`)
+    newsRequest = fetch(`${API_URL}/news`)
       .then(async (response) => {
         const data = await response.json();
 
@@ -24,6 +26,7 @@ export const getNews = async () => {
 
   return newsRequest;
 };
+
 
 export const getNewsById = async (id) => {
   const response = await fetch(`${API_URL}/news/${id}`);
