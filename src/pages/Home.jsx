@@ -36,9 +36,8 @@ const Home = () => {
               </h2>
 
               <p>
-                Stay connected with the latest football
-                news, fixtures, results, transfers and
-                stories from around the world.
+                 Stay connected with the latest football news, fixtures, results, transfers
+                  and stories from around the world, from the biggest stages to African football and the grassroots game.
               </p>
             </div>
 

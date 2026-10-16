@@ -42,6 +42,7 @@ const Navbar = () => {
             <div className="cabby-brand-text">
               <span className="cabby-name">CABBY</span>
               <span className="sports-name">SPORTS</span>
+              <span className="sports-code">An Improved Dynamics of Sports</span>
             </div>
           </Link>
 

@@ -7,7 +7,7 @@ const slides = [
     category: "FOOTBALL",
     title: "Latest Sports News, Updates & Stories",
     description:
-      "Stay up to date with the latest football news, transfers, fixtures, results and stories from around the world.",
+      "Every legend starts somewhere. Follow the latest football news, transfers, fixtures and results from around the world,and discover the grassroots stories rising across Africa and beyond.",
     image: "/hero-football.jpg",
     primaryText: "Read Latest News",
     primaryLink: "/news",
