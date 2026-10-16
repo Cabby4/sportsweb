@@ -42,9 +42,8 @@ const Footer = () => {
             </Link>
 
             <p>
-              Your home for the latest football news,
-              transfers, fixtures, results and sports
-              stories from around the world.
+              From packed stadiums to open fields in Lagos, Accra, Nairobi and beyond, football is more than a game. 
+              Catch every headline, every goal and every story, from the grassroots to other Leagues around the World.
             </p>
 
           </div>
