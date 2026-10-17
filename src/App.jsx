@@ -1,8 +1,8 @@
-
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
 
 import Home from "./pages/Home";
 import News from "./pages/News";
@@ -27,7 +27,7 @@ import ResultDetails from "./pages/ResultDetails";
 import NewsDetails from "./pages/NewsDetails";
 import TeamsPages from "./pages/TeamsPages";
 import TeamsDetails from "./pages/TeamsDetails";
-import Search from "./pages/search";
+import Search from "./pages/search"; // must match the file name exactly (search.jsx vs Search.jsx)
 
 function AppLayout() {
   const { pathname } = useLocation();
@@ -89,6 +89,7 @@ function AppLayout() {
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <AppLayout />
     </BrowserRouter>
   );
