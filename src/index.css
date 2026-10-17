@@ -6454,3 +6454,20 @@ img {
     letter-spacing: 0.04em;
   }
 }
+
+.footer-email {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-email svg {
+  flex-shrink: 0;
+  opacity: 0.85;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.footer-email:hover svg {
+  opacity: 1;
+  transform: translateY(-1px);
+}

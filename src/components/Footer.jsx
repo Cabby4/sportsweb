@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Mail } from "lucide-react";
 
 import {
   FaFacebook,
@@ -152,15 +153,12 @@ const handleEmailClick = (e) => {
 
             </div>
 
-          <div className="footer-email">
-            ✉
-            <a
-              href={`mailto:${email}`}
-              onClick={handleEmailClick}
-            >
-              {email}
-            </a>
-          </div>
+            <div className="footer-email">
+              <Mail size={18} strokeWidth={2} aria-hidden="true" />
+              <a href={`mailto:${email}`} onClick={handleEmailClick}>
+                {email}
+              </a>
+            </div>
 
           </div>
 
