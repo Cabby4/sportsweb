@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 
 import {
@@ -9,6 +8,28 @@ import {
 import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
+
+  const email = "cabbysports4@gmail.com";
+const subject = "Hello Cabby Sports";
+
+const handleEmailClick = (e) => {
+  e.preventDefault();
+
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  if (isMobile) {
+    // Opens the phone's default mail app (Gmail app if it is the default)
+    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
+  } else {
+    // Opens Gmail compose in a new browser tab
+    window.open(
+      `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(subject)}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
+  }
+};
+
   return (
     <footer className="cabby-footer">
 
@@ -42,7 +63,7 @@ const Footer = () => {
             </Link>
 
             <p>
-              From packed stadiums to open fields in Lagos, Accra, Nairobi and beyond, football is more than a game. 
+              From packed stadiums to open fields in Lagos, Accra, Nairobi and beyond, football is more than a game.
               Catch every headline, every goal and every story, from the grassroots to other Leagues around the World.
             </p>
 
@@ -93,32 +114,53 @@ const Footer = () => {
 
             <div className="footer-social-icons">
 
-                      <div className="social-icons">
+              <a
+                href="https://www.facebook.com/profile.php?id=100091353158880"
+                aria-label="Facebook"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaFacebook className="facebook-icon" />
+              </a>
 
-            <a href="https://www.facebook.com/profile.php?id=100091353158880" aria-label="Facebook">
-              <FaFacebook className="facebook-icon" />
+              <a
+                href="https://instagram.com/YOUR_PAGE"
+                aria-label="Instagram"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaInstagram className="instagram-icon" />
+              </a>
+
+              <a
+                href="https://x.com/cabbysports_1"
+                aria-label="X"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaXTwitter className="x-icon" />
+              </a>
+
+              <a
+                href="https://youtube.com/@cabbysports1?si=jpwJb2hEfXAGosO7"
+                aria-label="YouTube"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaYoutube className="youtube-icon" />
+              </a>
+
+            </div>
+
+          <div className="footer-email">
+            ✉
+            <a
+              href={`mailto:${email}`}
+              onClick={handleEmailClick}
+            >
+              {email}
             </a>
-
-            <a href="https://instagram.com/YOUR_PAGE" aria-label="Instagram">
-              <FaInstagram className="instagram-icon" />
-            </a>
-
-            <a href="https://x.com/cabbysports_1" aria-label="X">
-              <FaXTwitter className="x-icon" />
-            </a>
-
-            <a href="https://youtube.com/@cabbysports1?si=jpwJb2hEfXAGosO7" aria-label="YouTube">
-              <FaYoutube className="youtube-icon" />
-            </a>
-
           </div>
-
-            </div>
-
-            <div className="footer-email">
-              ✉
-              <span>cabbysports4@gmail.com</span>
-            </div>
 
           </div>
 
