@@ -2,7 +2,7 @@ const API_URL =
   import.meta.env.VITE_API_URL || "http://localhost:4001/api";
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
@@ -78,7 +78,7 @@ const AdminLogin = () => {
 
             <div className="text-center mb-4">
               <img
-                src="/cabby-sports-logo.png"
+                src="/MainLogo.jpeg"
                 alt="Cabby Sports"
                 style={{
                   width: "90px",
@@ -120,7 +120,7 @@ const AdminLogin = () => {
                 />
               </div>
 
-              <div className="mb-4">
+              <div className="mb-2">
                 <label className="form-label fw-semibold">
                   Password
                 </label>
@@ -135,6 +135,16 @@ const AdminLogin = () => {
                   required
                 />
               </div>
+
+              <div className="text-end mb-4">
+                <Link
+                  to="/admin/forgot-password"
+                  className="text-decoration-none small"
+                >
+                  Forgot Password?
+                </Link>
+              </div>
+
 
               <button
                 type="submit"
