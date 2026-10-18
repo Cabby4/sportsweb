@@ -7,6 +7,9 @@ import {
   deleteNews,
 } from "../../services/api";
 
+const API_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:4001/api";
+
 const emptyForm = {
   title: "",
   slug: "",
@@ -23,6 +26,8 @@ const emptyForm = {
 const AdminNews = () => {
   const [news, setNews] = useState([]);
   const [formData, setFormData] = useState(emptyForm);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState("");
 
   const [editingId, setEditingId] = useState(null);
 
@@ -49,6 +54,72 @@ const AdminNews = () => {
   useEffect(() => {
     fetchNews();
   }, []);
+
+  useEffect(() => {
+    return () => {
+      if (imagePreview.startsWith("blob:")) {
+        URL.revokeObjectURL(imagePreview);
+      }
+    };
+  }, [imagePreview]);
+
+  const handleImageChange = (event) => {
+    const file = event.target.files?.[0] || null;
+
+    if (!file) {
+      setSelectedImage(null);
+      setImagePreview("");
+      return;
+    }
+
+    const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+    if (!allowedTypes.includes(file.type)) {
+      setError("Only JPG, PNG, and WebP images are allowed.");
+      event.target.value = "";
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      setError("Image size must be 5 MB or less.");
+      event.target.value = "";
+      return;
+    }
+
+    setError("");
+    setSelectedImage(file);
+    setImagePreview(URL.createObjectURL(file));
+  };
+
+  const uploadNewsImage = async (file) => {
+    const token = localStorage.getItem("cabbyToken");
+    if (!token) {
+      throw new Error("Your session has expired. Please log in again.");
+    }
+
+    const body = new FormData();
+    body.append("image", file);
+
+    const response = await fetch(
+      `${API_URL.replace(/\/+$/, "")}/images`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body,
+      }
+    );
+
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      throw new Error(data.message || "Image upload failed.");
+    }
+    if (!data.imageUrl) {
+      throw new Error("The upload succeeded but no image URL was returned.");
+    }
+
+    return data.imageUrl;
+  };
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -85,8 +156,14 @@ const AdminNews = () => {
       setError("");
       setSuccess("");
 
+      // Upload a newly selected image first; otherwise preserve the existing image URL.
+      const imageUrl = selectedImage
+        ? await uploadNewsImage(selectedImage)
+        : formData.image;
+
       const payload = {
         ...formData,
+        image: imageUrl,
         tags: formData.tags
           .split(",")
           .map((tag) => tag.trim())
@@ -103,6 +180,8 @@ const AdminNews = () => {
 
       setFormData(emptyForm);
       setEditingId(null);
+      setSelectedImage(null);
+      setImagePreview("");
 
       await fetchNews();
 
@@ -119,6 +198,8 @@ const AdminNews = () => {
 
   const handleEdit = (article) => {
     setEditingId(article._id);
+    setSelectedImage(null);
+    setImagePreview("");
 
     setFormData({
       title: article.title || "",
@@ -164,6 +245,8 @@ const AdminNews = () => {
       if (editingId === id) {
         setEditingId(null);
         setFormData(emptyForm);
+        setSelectedImage(null);
+        setImagePreview("");
       }
 
       await fetchNews();
@@ -175,6 +258,8 @@ const AdminNews = () => {
   const handleCancelEdit = () => {
     setEditingId(null);
     setFormData(emptyForm);
+    setSelectedImage(null);
+    setImagePreview("");
     setError("");
     setSuccess("");
   };
@@ -312,20 +397,46 @@ const AdminNews = () => {
                 />
               </div>
 
-              {/* IMAGE */}
+              {/* CLOUDINARY IMAGE UPLOAD */}
               <div className="mb-3">
-                <label className="form-label fw-semibold">
-                  Image URL
+                <label htmlFor="news-image" className="form-label fw-semibold">
+                  News Image
                 </label>
 
                 <input
-                  type="url"
-                  name="image"
+                  id="news-image"
+                  type="file"
                   className="form-control"
-                  value={formData.image}
-                  onChange={handleChange}
-                  placeholder="https://example.com/image.jpg"
+                  accept="image/jpeg,image/png,image/webp"
+                  onChange={handleImageChange}
+                  disabled={saving}
                 />
+
+                <small className="text-muted d-block mt-1">
+                  Choose a JPG, PNG, or WebP image. Maximum size: 5 MB.
+                  {editingId && " Leave this empty to keep the current image."}
+                </small>
+
+                {(imagePreview || formData.image) && (
+                  <div className="mt-3">
+                    <img
+                      src={imagePreview || formData.image}
+                      alt="News image preview"
+                      style={{
+                        width: "100%",
+                        maxWidth: "320px",
+                        height: "180px",
+                        objectFit: "cover",
+                        borderRadius: "8px",
+                      }}
+                    />
+                    {selectedImage && (
+                      <div className="small text-muted mt-1">
+                        Selected: {selectedImage.name}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
 
               <div className="row">

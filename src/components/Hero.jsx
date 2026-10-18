@@ -49,7 +49,7 @@ const Hero = () => {
       setCurrentSlide((previous) =>
         previous === slides.length - 1 ? 0 : previous + 1
       );
-    }, 6000);
+    }, 15000);
 
     return () => clearInterval(interval);
   }, []);
