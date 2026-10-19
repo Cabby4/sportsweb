@@ -14,6 +14,19 @@ const Navbar = () => {
     { name: "Fixtures", path: "/fixtures" },
     { name: "Results", path: "/results" },
     { name: "Transfers", path: "/transfers" },
+    { name: "Africa Football", path: "/africa-football" },
+    { name: "Grassroots Football", path: "/grassroots-football" },
+  ];
+
+  const africaLinks = [
+    { name: "Africa Football Home", path: "/africa-football" },
+    { name: "CAF Champions League", path: "/africa-football/caf-champions-league" },
+    { name: "CAF Confederation Cup", path: "/africa-football/caf-confederation-cup" },
+    { name: "Nigeria League", path: "/africa-football/leagues/nigeria" },
+    { name: "South Africa League", path: "/africa-football/leagues/south-africa" },
+    { name: "Egypt League", path: "/africa-football/leagues/egypt" },
+    { name: "Morocco League", path: "/africa-football/leagues/morocco" },
+    { name: "Ghana League", path: "/africa-football/leagues/ghana" },
   ];
 
   const closeMenu = () => {
@@ -51,19 +64,18 @@ const Navbar = () => {
           ========================= */}
           <div className="cabby-desktop-nav">
             {navItems.map((item) => {
-              const active = location.pathname === item.path;
-
-              return (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className={`cabby-nav-link ${
-                    active ? "active" : ""
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              );
+              const active = location.pathname === item.path || (item.path === "/africa-football" && location.pathname.startsWith("/africa-football"));
+              if (item.path === "/africa-football") {
+                return (
+                  <div className="cabby-nav-dropdown" key={item.path}>
+                    <Link to={item.path} className={`cabby-nav-link ${active ? "active" : ""}`}>{item.name} <span aria-hidden="true">⌄</span></Link>
+                    <div className="cabby-nav-dropdown-menu">
+                      {africaLinks.map((subItem) => <Link key={subItem.path} to={subItem.path}>{subItem.name}</Link>)}
+                    </div>
+                  </div>
+                );
+              }
+              return <Link key={item.path} to={item.path} className={`cabby-nav-link ${active ? "active" : ""}`}>{item.name}</Link>;
             })}
 
             <Link
@@ -107,21 +119,11 @@ const Navbar = () => {
           <div className="cabby-mobile-nav">
 
             {navItems.map((item) => {
-              const active = location.pathname === item.path;
-
-              return (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  onClick={closeMenu}
-                  className={`cabby-mobile-link ${
-                    active ? "active" : ""
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              );
+              const active = location.pathname === item.path || (item.path === "/africa-football" && location.pathname.startsWith("/africa-football"));
+              return <Link key={item.path} to={item.path} onClick={closeMenu} className={`cabby-mobile-link ${active ? "active" : ""}`}>{item.name}</Link>;
             })}
+            <div className="cabby-mobile-subnav-label">Africa Football pages</div>
+            {africaLinks.slice(1).map((item) => <Link key={item.path} to={item.path} onClick={closeMenu} className="cabby-mobile-sublink">{item.name}</Link>)}
 
           </div>
         )}

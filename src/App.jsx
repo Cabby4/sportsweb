@@ -28,6 +28,7 @@ import NewsDetails from "./pages/NewsDetails";
 import TeamsPages from "./pages/TeamsPages";
 import TeamsDetails from "./pages/TeamsDetails";
 import Search from "./pages/search"; // must match the file name exactly (search.jsx vs Search.jsx)
+import SectionNewsPage from "./pages/SectionNewsPage";
 
 function AppLayout() {
   const { pathname } = useLocation();
@@ -54,6 +55,12 @@ function AppLayout() {
           <Route path="/teams" element={<TeamsPages />} />
           <Route path="/teams/:id" element={<TeamsDetails />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/news/section/:section" element={<SectionNewsPage />} />
+          <Route path="/africa-football" element={<SectionNewsPage section="africa" />} />
+          <Route path="/africa-football/caf-champions-league" element={<SectionNewsPage section="champions" />} />
+          <Route path="/africa-football/caf-confederation-cup" element={<SectionNewsPage section="confederation" />} />
+          <Route path="/africa-football/leagues/:country" element={<SectionNewsPage section="country" />} />
+          <Route path="/grassroots-football" element={<SectionNewsPage section="grassroots" grassroots />}/>
 
           {/* PUBLIC ADMIN AUTHENTICATION ROUTES */}
           <Route path="/admin/login" element={<AdminLogin />} />
