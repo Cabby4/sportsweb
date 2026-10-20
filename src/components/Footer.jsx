@@ -125,7 +125,7 @@ const handleEmailClick = (e) => {
               </a>
 
               <a
-                href="https://instagram.com/YOUR_PAGE"
+                href="https://www.instagram.com/cabby_sports/?__pwa=1"
                 aria-label="Instagram"
                 target="_blank"
                 rel="noopener noreferrer"

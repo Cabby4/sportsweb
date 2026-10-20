@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getNewsById } from "../services/api";
 
+import RelatedNews from "../components/RelatedNews";
+import FollowUs from "../components/FollowUs";
+import ShareButtons from "../components/ShareButtons";
+
 const NewsDetails = () => {
   const { id } = useParams();
 
@@ -11,9 +15,9 @@ const NewsDetails = () => {
 
   useEffect(() => {
     const fetchArticle = async () => {
+      setLoading(true);
       try {
         const data = await getNewsById(id);
-
         setArticle(data.data);
       } catch (error) {
         setError(error.message);
@@ -23,6 +27,7 @@ const NewsDetails = () => {
     };
 
     fetchArticle();
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [id]);
 
   if (loading) {
@@ -77,13 +82,9 @@ const NewsDetails = () => {
           />
         )}
 
-        <span className="badge bg-success mb-3">
-          {article.category}
-        </span>
+        <span className="badge bg-success mb-3">{article.category}</span>
 
-        <h1 className="fw-bold mb-3">
-          {article.title}
-        </h1>
+        <h1 className="fw-bold mb-3">{article.title}</h1>
 
         <p className="text-muted">
           By {article.author} ·{" "}
@@ -92,29 +93,27 @@ const NewsDetails = () => {
 
         <hr />
 
-        <p className="lead">
-          {article.summary}
-        </p>
+        <p className="lead">{article.summary}</p>
 
         <div className="mt-4">
-          <p style={{ whiteSpace: "pre-line" }}>
-            {article.content}
-          </p>
+          <p style={{ whiteSpace: "pre-line" }}>{article.content}</p>
         </div>
 
         {article.tags?.length > 0 && (
           <div className="mt-4">
             {article.tags.map((tag) => (
-              <span
-                key={tag}
-                className="badge bg-light text-dark me-2"
-              >
+              <span key={tag} className="badge bg-light text-dark me-2">
                 #{tag}
               </span>
             ))}
           </div>
         )}
       </article>
+
+         <ShareButtons title={article.title} />
+        <FollowUs />
+      <RelatedNews current={article} />
+      
     </div>
   );
 };

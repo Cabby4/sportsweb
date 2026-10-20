@@ -1,0 +1,49 @@
+.share {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(128, 128, 128, 0.3);
+}
+
+.share__title {
+  margin: 0 0 10px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.share__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.share__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.share__btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.share__btn:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+  color: #fff;
+}
+
+.share__btn--x { background: #000; }
+.share__btn--fb { background: #1877f2; }
+.share__btn--wa { background: #25d366; }
+.share__btn--copy { background: #6c757d; }
+.share__btn--native { background: #198754; }
