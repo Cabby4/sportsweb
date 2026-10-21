@@ -111,6 +111,123 @@ function NewsGrid({ articles }) {
   );
 }
 
+
+function GrassrootsFeaturedStory({ article }) {
+  if (!article) return null;
+
+  const articleUrl = `/news/${article._id || article.id || article.slug}`;
+
+  return (
+    <article className="cabby-grassroots-featured">
+      <div className="cabby-grassroots-featured-image">
+        {article.image ? (
+          <img src={article.image} alt={article.title} />
+        ) : (
+          <div className="cabby-grassroots-featured-placeholder">
+            <span>GRASSROOTS FOOTBALL</span>
+          </div>
+        )}
+        <span className="cabby-grassroots-featured-label">
+          FEATURED STORY
+        </span>
+      </div>
+
+      <div className="cabby-grassroots-featured-content">
+        <span className="cabby-grassroots-featured-category">
+          {article.category || "Grassroots Football"}
+        </span>
+
+        <h2>{article.title}</h2>
+
+        <p>
+          {article.summary ||
+            "Discover the latest stories, emerging talent and developments in grassroots football."}
+        </p>
+
+        <Link
+          to={articleUrl}
+          className="cabby-grassroots-featured-button"
+        >
+          Read Full Story <span aria-hidden="true">→</span>
+        </Link>
+      </div>
+    </article>
+  );
+}
+
+
+function AcademySpotlight({ articles, featuredArticle }) {
+  const academyArticles = articles
+    .filter((article) => article.grassrootsType === "academy")
+    .filter(
+      (article) =>
+        (article._id || article.id || article.slug) !==
+        (featuredArticle?._id ||
+          featuredArticle?.id ||
+          featuredArticle?.slug)
+    )
+    .slice(0, 3);
+
+  if (!academyArticles.length) return null;
+
+  return (
+    <section className="cabby-academy-spotlight">
+      <div className="cabby-academy-heading">
+        <div>
+          <span>BUILDING THE FUTURE</span>
+          <h2>Academy Spotlight</h2>
+          <p>
+            Discover the academies developing the next generation of football
+            talent.
+          </p>
+        </div>
+
+        <span className="cabby-academy-heading-icon" aria-hidden="true">
+          ⚽
+        </span>
+      </div>
+
+      <div className="cabby-academy-grid">
+        {academyArticles.map((article) => (
+          <article
+            className="cabby-academy-card"
+            key={article._id || article.id || article.slug || article.title}
+          >
+            {article.image ? (
+              <img
+                src={article.image}
+                alt={article.title}
+                loading="lazy"
+              />
+            ) : (
+              <div className="cabby-academy-image-placeholder">
+                <span>ACADEMY SPOTLIGHT</span>
+              </div>
+            )}
+
+            <div className="cabby-academy-card-content">
+              <span className="cabby-academy-tag">ACADEMY FEATURE</span>
+              <h3>{article.title}</h3>
+              <p>
+                {article.summary ||
+                  "Read about the people and programmes helping develop future football talent."}
+              </p>
+
+              <Link
+                to={`/news/${article._id || article.id || article.slug}`}
+                className="cabby-academy-link"
+              >
+                Read Story <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+
 export default function SectionNewsPage({
   section = "africa",
   competition,
@@ -314,6 +431,17 @@ export default function SectionNewsPage({
             All news →
           </Link>
         </div>
+
+                {grassroots && !loading && !error && articles.length > 0 && (
+             <GrassrootsFeaturedStory article={articles[0]} />
+              )}
+
+              {grassroots && !loading && !error && (
+          <AcademySpotlight
+            articles={articles}
+            featuredArticle={articles[0]}
+          />
+        )}
 
         {loading ? (
           <div className="py-5 text-center">

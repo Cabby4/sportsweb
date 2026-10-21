@@ -204,7 +204,7 @@ main {
 
   width: max-content;
 
-  animation: cabbyBreakingScroll 35s linear infinite;
+  animation: cabbyBreakingScroll 125s linear infinite;
 }
 
 .cabby-breaking-track:hover {
@@ -406,9 +406,12 @@ main {
 }
 
 .news-card img {
+  display: block;
   width: 100%;
   height: 210px;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
+  background-color: #f1f5f9;
 }
 
 .news-card-content {
@@ -419,6 +422,7 @@ main {
   font-size: 11px;
   font-weight: 700;
 }
+
 
 .news-card-content h3 {
   font-size: 19px;
@@ -3739,19 +3743,20 @@ main {
 }
 
 .football-news-image {
-  height: 230px;
-
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
   position: relative;
-
   overflow: hidden;
+  background: #f1f5f9;
 }
 
 .football-news-image img {
+  display: block;
   width: 100%;
   height: 100%;
-
-  object-fit: cover;
-
+  object-fit: contain;
+  object-position: center;
   transition: transform 0.35s ease;
 }
 
@@ -6767,5 +6772,287 @@ img {
   .cabby-grassroots-page .cabby-editorial-section-heading {
     align-items: flex-start;
     flex-direction: column;
+  }
+}
+
+
+/* Grassroots featured story */
+.cabby-grassroots-page .cabby-grassroots-featured {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  overflow: hidden;
+  margin-bottom: 35px;
+  background: #fff;
+  border: 1px solid #dbe5f7;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(30, 64, 175, 0.09);
+}
+
+.cabby-grassroots-page .cabby-grassroots-featured-image {
+  position: relative;
+  min-height: 340px;
+  background: #172554;
+}
+
+.cabby-grassroots-page .cabby-grassroots-featured-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 340px;
+  object-fit: cover;
+}
+
+.cabby-grassroots-page .cabby-grassroots-featured-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 340px;
+  padding: 20px;
+  color: #fff;
+  background: linear-gradient(135deg, #172554, #2563eb);
+  font-size: 1.2rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.cabby-grassroots-page .cabby-grassroots-featured-label {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  padding: 8px 12px;
+  color: #fff;
+  background: #2563eb;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 1px;
+}
+
+.cabby-grassroots-page .cabby-grassroots-featured-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: clamp(24px, 4vw, 44px);
+}
+
+.cabby-grassroots-page .cabby-grassroots-featured-category {
+  margin-bottom: 14px;
+  color: #2563eb;
+  font-size: 0.78rem;
+  font-weight: 850;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.cabby-grassroots-page .cabby-grassroots-featured-content h2 {
+  margin-bottom: 16px;
+  color: #172554;
+  font-size: clamp(1.5rem, 2.6vw, 2.35rem);
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.cabby-grassroots-page .cabby-grassroots-featured-content p {
+  margin-bottom: 24px;
+  color: #64748b;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.cabby-grassroots-page .cabby-grassroots-featured-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  color: #fff;
+  background: #2563eb;
+  border-radius: 8px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.cabby-grassroots-page .cabby-grassroots-featured-button:hover {
+  color: #fff;
+  background: #1d4ed8;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 767px) {
+  .cabby-grassroots-page .cabby-grassroots-featured {
+    grid-template-columns: 1fr;
+  }
+
+  .cabby-grassroots-page .cabby-grassroots-featured-image,
+  .cabby-grassroots-page .cabby-grassroots-featured-image img,
+  .cabby-grassroots-page .cabby-grassroots-featured-placeholder {
+    min-height: 230px;
+    max-height: 280px;
+  }
+
+  .cabby-grassroots-page .cabby-grassroots-featured-content {
+    padding: 24px;
+  }
+}
+
+
+/* Grassroots Academy Spotlight */
+.cabby-grassroots-page .cabby-academy-spotlight {
+  margin: 35px 0 45px;
+  padding: clamp(20px, 3vw, 32px);
+  background: linear-gradient(135deg, #eff6ff, #ffffff);
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+}
+
+.cabby-grassroots-page .cabby-academy-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 25px;
+}
+
+.cabby-grassroots-page .cabby-academy-heading > div > span {
+  color: #2563eb;
+  font-size: 0.75rem;
+  font-weight: 850;
+  letter-spacing: 1.5px;
+}
+
+.cabby-grassroots-page .cabby-academy-heading h2 {
+  margin: 8px 0;
+  color: #172554;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 900;
+}
+
+.cabby-grassroots-page .cabby-academy-heading p {
+  margin: 0;
+  color: #64748b;
+  line-height: 1.7;
+}
+
+.cabby-grassroots-page .cabby-academy-heading-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  color: #2563eb;
+  background: #dbeafe;
+  border-radius: 16px;
+  font-size: 1.8rem;
+}
+
+.cabby-grassroots-page .cabby-academy-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.cabby-grassroots-page .cabby-academy-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+  background: #fff;
+  border: 1px solid #dbe5f7;
+  border-radius: 13px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cabby-grassroots-page .cabby-academy-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 25px rgba(37, 99, 235, 0.12);
+}
+
+.cabby-grassroots-page .cabby-academy-card > img,
+.cabby-grassroots-page .cabby-academy-image-placeholder {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+}
+
+.cabby-grassroots-page .cabby-academy-image-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  color: #fff;
+  background: linear-gradient(135deg, #172554, #2563eb);
+  font-size: 0.85rem;
+  font-weight: 850;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.cabby-grassroots-page .cabby-academy-card-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.cabby-grassroots-page .cabby-academy-tag {
+  margin-bottom: 12px;
+  color: #2563eb;
+  font-size: 0.7rem;
+  font-weight: 850;
+  letter-spacing: 0.8px;
+}
+
+.cabby-grassroots-page .cabby-academy-card h3 {
+  color: #172554;
+  font-size: 1.12rem;
+  font-weight: 850;
+  line-height: 1.45;
+}
+
+.cabby-grassroots-page .cabby-academy-card p {
+  color: #64748b;
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+
+.cabby-grassroots-page .cabby-academy-link {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 10px;
+  color: #2563eb;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.cabby-grassroots-page .cabby-academy-link:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+  .cabby-grassroots-page .cabby-academy-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 576px) {
+  .cabby-grassroots-page .cabby-academy-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cabby-grassroots-page .cabby-academy-card > img,
+  .cabby-grassroots-page .cabby-academy-image-placeholder {
+    height: 215px;
+  }
+
+  .cabby-grassroots-page .cabby-academy-heading-icon {
+    width: 46px;
+    height: 46px;
   }
 }
