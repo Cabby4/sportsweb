@@ -3,29 +3,28 @@ const API_URL = (
   "https://cabby-sports-api.onrender.com/api"
 ).replace(/\/+$/, "");
 
-let newsRequest = null;
+export const getNews = async (filters = {}) => {
+  const query = new URLSearchParams();
 
-export const getNews = async () => {
-  if (!newsRequest) {
-    newsRequest = fetch(`${API_URL}/news`)
-      .then(async (response) => {
-        const data = await response.json();
+  Object.entries(filters).forEach(([key, value]) => {
+    if (value !== undefined && value !== null && value !== "") {
+      query.set(key, value);
+    }
+  });
 
-        if (!response.ok) {
-          throw new Error(
-            data.message || "Failed to fetch news"
-          );
-        }
+  const queryString = query.toString();
+  const url = `${API_URL}/news${queryString ? `?${queryString}` : ""}`;
 
-        return data;
-      })
-      .finally(() => {
-        newsRequest = null;
-      });
+  const response = await fetch(url);
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Failed to fetch news");
   }
 
-  return newsRequest;
+  return data;
 };
+
 
 
 export const getNewsById = async (id) => {

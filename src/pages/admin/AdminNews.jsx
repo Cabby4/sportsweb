@@ -10,6 +10,7 @@ import {
 const API_URL =
   import.meta.env.VITE_API_URL || "http://localhost:4001/api";
 
+
 const emptyForm = {
   title: "",
   slug: "",
@@ -17,11 +18,16 @@ const emptyForm = {
   content: "",
   image: "",
   category: "Football",
+  section: "football",
+  competition: "",
+  country: "",
+  grassrootsType: "",
   author: "Cabby Sports",
   tags: "",
   featured: false,
   published: true,
 };
+
 
 const AdminNews = () => {
   const [news, setNews] = useState([]);
@@ -148,10 +154,49 @@ const AdminNews = () => {
     }));
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const validateClassification = () => {
+  if (formData.section === "africa" && !formData.competition) {
+    return "Please select an African football competition.";
+  }
 
-    try {
+  if (
+    formData.section === "africa" &&
+    formData.competition === "domestic-league" &&
+    !formData.country
+  ) {
+    return "Please select a country for this domestic league article.";
+  }
+
+  if (
+    formData.section === "grassroots" &&
+    !formData.country
+  ) {
+    return "Please select a country for this grassroots article.";
+  }
+
+  if (
+    formData.section === "grassroots" &&
+    !formData.grassrootsType
+  ) {
+    return "Please select a grassroots content type.";
+  }
+
+  return "";
+};
+
+const handleSubmit = async (event) => {
+  event.preventDefault();
+
+  const classificationError = validateClassification();
+
+  if (classificationError) {
+    setError(classificationError);
+    setSuccess("");
+    return;
+  }
+
+  try {
+    setSaving(true);
       setSaving(true);
       setError("");
       setSuccess("");
@@ -201,13 +246,19 @@ const AdminNews = () => {
     setSelectedImage(null);
     setImagePreview("");
 
-    setFormData({
+        setFormData({
       title: article.title || "",
       slug: article.slug || "",
       summary: article.summary || "",
       content: article.content || "",
       image: article.image || "",
       category: article.category || "Football",
+
+      section: article.section || "football",
+      competition: article.competition || "",
+      country: article.country || "",
+      grassrootsType: article.grassrootsType || "",
+
       author: article.author || "Cabby Sports",
       tags: Array.isArray(article.tags)
         ? article.tags.join(", ")
@@ -504,6 +555,119 @@ const AdminNews = () => {
 
               </div>
 
+              
+{/* AFRICA FOOTBALL AND GRASSROOTS CLASSIFICATION */}
+<div className="card bg-light border mb-4">
+  <div className="card-body">
+    <h5 className="fw-bold mb-3">
+      Football Section Classification
+    </h5>
+
+    <div className="row">
+      {/* SECTION */}
+      <div className="col-md-6 mb-3">
+        <label className="form-label fw-semibold">
+          Section
+        </label>
+
+        <select
+          name="section"
+          className="form-select"
+          value={formData.section}
+          onChange={handleChange}
+        >
+          <option value="football">General Football</option>
+          <option value="africa">Africa Football</option>
+          <option value="grassroots">Grassroots Football</option>
+        </select>
+      </div>
+
+      {/* COMPETITION */}
+      {formData.section === "africa" && (
+        <div className="col-md-6 mb-3">
+          <label className="form-label fw-semibold">
+            Competition
+          </label>
+
+          <select
+            name="competition"
+            className="form-select"
+            value={formData.competition}
+            onChange={handleChange}
+          >
+            <option value="">Select competition</option>
+            <option value="caf-champions-league">
+              CAF Champions League
+            </option>
+            <option value="caf-confederation-cup">
+              CAF Confederation Cup
+            </option>
+            <option value="domestic-league">
+              Domestic League
+            </option>
+            <option value="other">Other African Competition</option>
+          </select>
+        </div>
+      )}
+
+      {/* COUNTRY */}
+      {(formData.section === "africa" ||
+        formData.section === "grassroots") && (
+        <div className="col-md-6 mb-3">
+          <label className="form-label fw-semibold">
+            Country
+          </label>
+
+          <select
+            name="country"
+            className="form-select"
+            value={formData.country}
+            onChange={handleChange}
+          >
+            <option value="">Select country</option>
+            <option value="nigeria">Nigeria</option>
+            <option value="egypt">Egypt</option>
+            <option value="ghana">Ghana</option>
+            <option value="morocco">Morocco</option>
+            <option value="south-africa">South Africa</option>
+            <option value="tunisia">Tunisia</option>
+            <option value="algeria">Algeria</option>
+            <option value="senegal">Senegal</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      )}
+
+      {/* GRASSROOTS TYPE */}
+      {formData.section === "grassroots" && (
+        <div className="col-md-6 mb-3">
+          <label className="form-label fw-semibold">
+            Grassroots Content Type
+          </label>
+
+          <select
+            name="grassrootsType"
+            className="form-select"
+            value={formData.grassrootsType}
+            onChange={handleChange}
+          >
+            <option value="">Select content type</option>
+            <option value="news">Grassroots News</option>
+            <option value="academy">Academy</option>
+            <option value="tournament">Tournament</option>
+            <option value="player-profile">Player Profile</option>
+          </select>
+        </div>
+      )}
+    </div>
+
+    <small className="text-muted">
+      Choose the appropriate section to help Cabby Sports
+      display this article in the correct area of the website.
+    </small>
+  </div>
+</div>
+
               {/* TAGS */}
               <div className="mb-4">
                 <label className="form-label fw-semibold">
@@ -651,24 +815,73 @@ const AdminNews = () => {
                   )}
 
                   <div className="card-body d-flex flex-column">
+                    
+                <div className="mb-2 d-flex flex-wrap gap-2">
+                  <span className="badge bg-success">
+                    {article.category}
+                  </span>
 
-                    <div className="mb-2">
-                      <span className="badge bg-success">
-                        {article.category}
-                      </span>
+                  <span
+                    className={`badge ${
+                      article.section === "africa"
+                        ? "bg-primary"
+                        : article.section === "grassroots"
+                        ? "bg-info text-dark"
+                        : "bg-secondary"
+                    }`}
+                  >
+                    {article.section === "africa"
+                      ? "Africa Football"
+                      : article.section === "grassroots"
+                      ? "Grassroots Football"
+                      : "General Football"}
+                  </span>
 
-                      {article.featured && (
-                        <span className="badge bg-warning text-dark ms-2">
-                          Featured
-                        </span>
-                      )}
+                  {article.competition && (
+                    <span className="badge bg-dark">
+                      {article.competition === "caf-champions-league"
+                        ? "CAF Champions League"
+                        : article.competition === "caf-confederation-cup"
+                        ? "CAF Confederation Cup"
+                        : article.competition === "domestic-league"
+                        ? "Domestic League"
+                        : article.competition}
+                    </span>
+                  )}
 
-                      {!article.published && (
-                        <span className="badge bg-secondary ms-2">
-                          Draft
-                        </span>
-                      )}
-                    </div>
+                  {article.country && (
+                    <span className="badge bg-light text-dark border">
+                      {article.country
+                        .split("-")
+                        .map(
+                          (word) =>
+                            word.charAt(0).toUpperCase() + word.slice(1)
+                        )
+                        .join(" ")}
+                    </span>
+                  )}
+
+                  {article.grassrootsType && (
+                    <span className="badge bg-warning text-dark">
+                      {article.grassrootsType === "player-profile"
+                        ? "Player Profile"
+                        : article.grassrootsType.charAt(0).toUpperCase() +
+                          article.grassrootsType.slice(1)}
+                    </span>
+                  )}
+
+                  {article.featured && (
+                    <span className="badge bg-warning text-dark">
+                      Featured
+                    </span>
+                  )}
+
+                  {!article.published && (
+                    <span className="badge bg-secondary">
+                      Draft
+                    </span>
+                  )}
+                </div>
 
                     <h5 className="fw-bold">
                       {article.title}

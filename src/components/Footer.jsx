@@ -85,7 +85,8 @@ const handleEmailClick = (e) => {
             <Link to="/teams">Teams</Link>
             <Link to="/fixtures">Fixtures</Link>
             <Link to="/results">Results</Link>
-
+            <Link to="/africa-football">Africa Football</Link>
+            <Link to="/grassroots-football">Grassroots Football</Link>
           </div>
 
           {/* =========================

@@ -6480,7 +6480,7 @@ img {
 .cabby-nav-dropdown-menu { display: none; position: absolute; top: 100%; left: 0; min-width: 235px; padding: 8px; background: #111827; border: 1px solid rgba(255,255,255,.12); border-radius: 8px; box-shadow: 0 12px 28px rgba(0,0,0,.2); z-index: 1000; }
 .cabby-nav-dropdown:hover .cabby-nav-dropdown-menu, .cabby-nav-dropdown:focus-within .cabby-nav-dropdown-menu { display: flex; flex-direction: column; }
 .cabby-nav-dropdown-menu a { padding: 10px 12px; color: #f9fafb; text-decoration: none; border-radius: 5px; font-size: 13px; white-space: nowrap; }
-.cabby-nav-dropdown-menu a:hover { background: #176b45; color: #fff; }
+.cabby-nav-dropdown-menu a:hover { background: #b87108; color: #fff; }
 .cabby-mobile-subnav-label { padding: 14px 16px 5px; color: #16834f; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
 .cabby-mobile-sublink { display: block; padding: 9px 26px; color: inherit; text-decoration: none; font-size: 14px; }
 .cabby-editorial-page { background: #f7f8fa; min-height: 65vh; padding-bottom: 25px; }
