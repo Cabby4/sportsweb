@@ -231,8 +231,16 @@ export default function SectionNewsPage({
   }, [section, competition, country, grassroots, grassrootsTab]);
 
   return (
-    <main className="cabby-editorial-page">
-      <section className="cabby-editorial-hero">
+            <main
+          className={`cabby-editorial-page ${
+            grassroots ? "cabby-grassroots-page" : ""
+          }`}
+        >
+                  <section
+              className={`cabby-editorial-hero ${
+                grassroots ? "cabby-grassroots-hero" : ""
+              }`}
+            >
         <div className="container py-5">
           <span className="cabby-editorial-eyebrow">{config.eyebrow}</span>
           <h1>{config.title}</h1>
@@ -266,7 +274,7 @@ export default function SectionNewsPage({
       </section>
 
       {grassroots && (
-        <section className="container pt-4">
+        <section className="container pt-4 cabby-grassroots-tabs-section">
           <div
             className="cabby-section-tabs"
             aria-label="Filter grassroots stories"
