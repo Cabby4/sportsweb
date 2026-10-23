@@ -1,6 +1,18 @@
-const API_URL = (
+// const API_URL = (
+//   import.meta.env.VITE_API_URL ||
+//   "https://cabby-sports-api.onrender.com/api"
+// ).replace(/\/+$/, "");
+
+// const API_URL = (
+//   import.meta.env.VITE_API_URL ||
+//   "http://localhost:5000/api"
+// ).replace(/\/+$/, "");
+
+export const API_URL = (
   import.meta.env.VITE_API_URL ||
-  "https://cabby-sports-api.onrender.com/api"
+  (import.meta.env.DEV
+    ? "http://localhost:4001/api"
+    : "https://cabby-sports-api.onrender.com/api")
 ).replace(/\/+$/, "");
 
 export const getNews = async (filters = {}) => {

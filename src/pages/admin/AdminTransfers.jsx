@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import ImageUpload from "../../components/ImageUpload";
+
 import {
   getTransfers,
   createTransfer,
@@ -303,20 +305,19 @@ const AdminTransfers = () => {
                 />
               </div>
 
-              {/* PLAYER IMAGE */}
+             {/* PLAYER IMAGE */}
 
               <div className="col-12">
-                <label className="form-label fw-semibold">
-                  Player Image URL
-                </label>
-
-                <input
-                  type="url"
-                  name="playerImage"
-                  className="form-control"
-                  placeholder="https://example.com/player.jpg"
+                <ImageUpload
+                  label="Player Image"
                   value={formData.playerImage}
-                  onChange={handleChange}
+                  onChange={(url) =>
+                    setFormData((previous) => ({
+                      ...previous,
+                      playerImage: url,
+                    }))
+                  }
+                  folder="cabby-sports/transfers"
                 />
               </div>
 
