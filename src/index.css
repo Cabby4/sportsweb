@@ -7056,3 +7056,31 @@ img {
     height: 46px;
   }
 }
+
+
+.cabby-section-news-card .card-img-top,
+.cabby-section-news-card img {
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 16 / 9 !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  background-color: #f1f1f1;
+}
+
+section img.card-img-top,
+.card img {
+  object-fit: cover !important;
+  object-position: top !important;
+  height: 260px !important;
+  width: 100% !important;
+}
+
+.cabby-latest-news img {
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 16 / 9 !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  background-color: #f1f1f1;
+}

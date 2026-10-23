@@ -74,10 +74,12 @@ const NewsDetails = () => {
             src={article.image}
             alt={article.title}
             className="img-fluid rounded mb-4"
-            style={{
+           style={{
               width: "100%",
-              maxHeight: "500px",
-              objectFit: "cover",
+              height: "auto",
+              maxHeight: "600px",
+              objectFit: "contain",
+              backgroundColor: "#f1f1f1",
             }}
           />
         )}
