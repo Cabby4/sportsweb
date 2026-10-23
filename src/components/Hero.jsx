@@ -7,36 +7,36 @@ const slides = [
     category: "FOOTBALL",
     title: "Latest Sports News, Updates & Stories",
     description:
-      "Every legend starts somewhere. Follow the latest football news, transfers, fixtures and results from around the world,and discover the grassroots stories rising across Africa and beyond.",
+      "Every legend starts somewhere. Follow the latest football news, transfers, fixtures and results from around the world, and discover the grassroots stories rising across Africa and beyond.",
     image: "/hero-football.jpg",
     primaryText: "Read Latest News",
     primaryLink: "/news",
-    secondaryText: "View Fixtures",
-    secondaryLink: "/fixtures",
-  },
-  {
-    id: 2,
-    category: "TRANSFER CENTRE",
-    title: "Follow Every Transfer Story",
-    description:
-      "Keep up with transfer news, player movements, rumours and the latest stories from the football market.",
-    image: "/hero-transfers.jpg",
-    primaryText: "View Transfers",
-    primaryLink: "/transfers",
     secondaryText: "Football Hub",
     secondaryLink: "/football",
   },
   {
-    id: 3,
-    category: "MATCH CENTRE",
-    title: "Fixtures, Results & Match Updates",
+    id: 2,
+    category: "GRASSROOTS FOOTBALL",
+    title: "Where Future Stars Are Born",
     description:
-      "Follow upcoming fixtures, recent results and match information from competitions around the football world.",
+      "From local pitches to future stars, grassroots football is where talent begins and dreams grow. We celebrate the players, coaches, and communities building a stronger game, one match at a time. Discover emerging talents, local competitions, and inspiring stories shaping the future of football across Africa.",
+    image: "/grassroot.png",
+    primaryText: "Explore Grassroots",
+    primaryLink: "/grassroots-football",
+    secondaryText: "Africa Football",
+    secondaryLink: "/africa-football",
+  },
+  {
+    id: 3,
+    category: "AFRICA FOOTBALL",
+    title: "The Heart of African Football",
+    description:
+      "Stay connected to African football with the latest stories, continental competitions, club updates and the rising talents shaping the future of the game.",
     image: "/hero-matchday.jpg",
-    primaryText: "View Fixtures",
-    primaryLink: "/fixtures",
-    secondaryText: "View Results",
-    secondaryLink: "/results",
+    primaryText: "Explore Africa Football",
+    primaryLink: "/africa-football",
+    secondaryText: "Grassroots Football",
+    secondaryLink: "/grassroots-football",
   },
 ];
 
@@ -70,7 +70,6 @@ const Hero = () => {
 
   return (
     <section className="cabby-hero">
-
       {/* Background Images */}
       <div className="cabby-hero-backgrounds">
         {slides.map((item, index) => (
@@ -88,14 +87,9 @@ const Hero = () => {
 
       {/* Dark Overlay */}
       <div className="cabby-hero-overlay">
-
         <div className="container">
           <div className="cabby-hero-content">
-
-            <div
-              key={slide.id}
-              className="cabby-hero-text"
-            >
+            <div key={slide.id} className="cabby-hero-text">
               <span className="cabby-hero-category">
                 {slide.category}
               </span>
@@ -105,13 +99,11 @@ const Hero = () => {
               <p>{slide.description}</p>
 
               <div className="cabby-hero-actions">
-
                 <Link
                   to={slide.primaryLink}
                   className="cabby-primary-btn"
                 >
                   {slide.primaryText}
-
                   <span>→</span>
                 </Link>
 
@@ -121,10 +113,8 @@ const Hero = () => {
                 >
                   {slide.secondaryText}
                 </Link>
-
               </div>
             </div>
-
           </div>
         </div>
 
@@ -149,10 +139,7 @@ const Hero = () => {
         </button>
 
         {/* Slide Controls */}
-        <div className="cabby-hero-controls">
-
-        </div>
-
+        <div className="cabby-hero-controls"></div>
       </div>
     </section>
   );

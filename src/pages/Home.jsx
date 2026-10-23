@@ -29,26 +29,28 @@ const Home = () => {
         <div className="container">
           <div className="home-final-cta-box">
             <div>
-              <span>CABBY SPORTS</span>
+              <span>CABBY SPORTS | BEYOND THE GAME</span>
 
               <h2>
-                The Improved Dynamics of Sports
+                Every Story. Every Match. Every Moment.
               </h2>
 
               <p>
-                 Stay connected with the latest football news, fixtures, results, transfers
-                  and stories from around the world, from the biggest stages to African football and the grassroots game.
+                Your destination for trusted football news, match updates,
+                fixtures, results and transfer stories. From the biggest
+                global competitions to African football and grassroots
+                talent, we bring you closer to the game.
               </p>
             </div>
 
             <div className="home-final-cta-actions">
               <Link to="/news" className="home-cta-primary">
-  Explore News →
-</Link>
+                Explore Latest News →
+              </Link>
 
-<Link to="/football" className="home-cta-secondary">
-  Football Hub
-</Link>
+              <Link to="/football" className="home-cta-secondary">
+                Explore Football
+              </Link>
             </div>
           </div>
         </div>
