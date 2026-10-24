@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 import {
   getFixtures,
@@ -181,21 +182,24 @@ const AdminFixtures = () => {
   };
 
   return (
-    <div className="container py-5">
-      {/* HEADER */}
-      <div className="mb-4">
-        <span className="text-success fw-bold">
-          CABBY SPORTS ADMIN
-        </span>
+    <div className="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4">
+  <div>
+    <span className="text-success fw-bold">
+      CABBY SPORTS ADMIN
+    </span>
 
-        <h1 className="fw-bold mb-1">
-          {editingId ? "Edit Fixture" : "Manage Fixtures"}
-        </h1>
+    <h1 className="fw-bold mb-1">
+      {editingId ? "Edit Fixture" : "Manage Fixtures"}
+    </h1>
 
-        <p className="text-muted mb-0">
-          Create and manage upcoming football fixtures.
-        </p>
-      </div>
+    <p className="text-muted mb-0">
+      Create and manage upcoming football fixtures.
+    </p>
+  </div>
+
+  <Link to="/admin/dashboard" className="btn btn-outline-dark btn-sm">
+    ← Dashboard
+  </Link>
 
       {/* ALERTS */}
       {error && (

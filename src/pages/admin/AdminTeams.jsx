@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ImageUpload from "../../components/ImageUpload";
+import { Link } from "react-router-dom";
 
 import {
   getTeams,
@@ -158,22 +159,25 @@ const AdminTeams = () => {
   };
 
   return (
-    <div className="container py-5">
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <div>
-          <span className="text-success fw-bold">
-            CABBY SPORTS ADMIN
-          </span>
 
-          <h1 className="fw-bold mb-1">
-            {editingId ? "Edit Team" : "Manage Teams"}
-          </h1>
+    <div className="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4">
+  <div>
+    <span className="text-success fw-bold">
+      CABBY SPORTS ADMIN
+    </span>
 
-          <p className="text-muted mb-0">
-            Create and manage football teams.
-          </p>
-        </div>
-      </div>
+    <h1 className="fw-bold mb-1">
+      {editingId ? "Edit Team" : "Manage Teams"}
+    </h1>
+
+    <p className="text-muted mb-0">
+      Create and manage football teams.
+    </p>
+  </div>
+
+  <Link to="/admin/dashboard" className="btn btn-outline-dark btn-sm">
+    ← Dashboard
+  </Link>
 
       {error && (
         <div className="alert alert-danger">
