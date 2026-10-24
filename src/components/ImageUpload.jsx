@@ -1,7 +1,5 @@
 import { useState } from "react";
-
-// Local and Live testing
-const API_URL = "http://localhost:4001/api" || "https://cabby-sports-api.onrender.com/api";
+import { API_URL } from "../services/api";
 
 const ImageUpload = ({ label = "Image", value, onChange, folder }) => {
   const [uploading, setUploading] = useState(false);
