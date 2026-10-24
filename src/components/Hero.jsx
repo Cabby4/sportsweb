@@ -7,7 +7,7 @@ const slides = [
     category: "FOOTBALL",
     title: "Latest Sports News, Updates & Stories",
     description:
-      "Every legend starts somewhere. Follow the latest football news, transfers, fixtures and results from around the world, and discover the grassroots stories rising across Africa and beyond.",
+      "Stay ahead of the game with the latest sports news, live updates, match results, fixtures, transfer news, and exclusive stories from the world of football and beyond. Get the latest insights, breaking headlines, and in-depth coverage of your favourite teams, players, and competitions with Cabby Sports. Your home for everything sports.",
     image: "/hero-football.jpg",
     primaryText: "Read Latest News",
     primaryLink: "/news",
