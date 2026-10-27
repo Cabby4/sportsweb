@@ -15,6 +15,9 @@ const Home = () => {
   const [grassrootsNews, setGrassrootsNews] = useState([]);
   const [grassrootsLoading, setGrassrootsLoading] = useState(true);
 
+  const [africaNews, setAfricaNews] = useState([]);
+  const [africaLoading, setAfricaLoading] = useState(true);
+
   useEffect(() => {
     let active = true;
 
@@ -24,18 +27,44 @@ const Home = () => {
 
         const articles = Array.isArray(data.data) ? data.data : [];
 
-        // Keep only published Grassroots Football stories.
-        const filteredArticles = articles.filter(
-          (article) => article.section === "grassroots"
+        setGrassrootsNews(
+          articles
+            .filter((article) => article.section === "grassroots")
+            .slice(0, 3)
         );
-
-        setGrassrootsNews(filteredArticles.slice(0, 3));
       })
       .catch((error) => {
         console.error("Unable to load grassroots news:", error);
       })
       .finally(() => {
         if (active) setGrassrootsLoading(false);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+
+    getNews({ section: "africa" })
+      .then((data) => {
+        if (!active) return;
+
+        const articles = Array.isArray(data.data) ? data.data : [];
+
+        setAfricaNews(
+          articles
+            .filter((article) => article.section === "africa")
+            .slice(0, 3)
+        );
+      })
+      .catch((error) => {
+        console.error("Unable to load African football news:", error);
+      })
+      .finally(() => {
+        if (active) setAfricaLoading(false);
       });
 
     return () => {
@@ -58,6 +87,126 @@ const Home = () => {
       <Results />
 
       <LatestTransfers />
+
+      {/* AFRICA FOOTBALL HOMEPAGE SECTION */}
+      <section className="home-africa-section">
+        <div className="container">
+          <div className="home-africa-heading">
+            <div>
+              <span className="home-africa-eyebrow">
+                THE PRIDE OF AFRICAN FOOTBALL
+              </span>
+
+              <h2>Africa Football</h2>
+
+              <p>
+                Follow African club competitions, domestic leagues and the
+                stories shaping football across the continent.
+              </p>
+            </div>
+
+            <Link
+              to="/africa-football"
+              className="home-africa-view-all"
+            >
+              Explore Africa Football →
+            </Link>
+          </div>
+
+          <div className="home-africa-topics">
+            <Link to="/africa-football/caf-champions-league">
+              CAF Champions League
+            </Link>
+
+            <Link to="/africa-football/caf-confederation-cup">
+              CAF Confederation Cup
+            </Link>
+
+            <Link to="/africa-football/leagues/nigeria">
+              Nigerian League
+            </Link>
+
+            <Link to="/africa-football/leagues/south-africa">
+              South African League
+            </Link>
+          </div>
+
+          {africaLoading ? (
+            <p className="home-africa-status">
+              Loading African football stories...
+            </p>
+          ) : africaNews.length > 0 ? (
+            <div className="home-africa-grid">
+              {africaNews.map((article) => (
+                <article
+                  className="home-africa-card"
+                  key={article._id || article.id || article.slug || article.title}
+                >
+                  <Link
+                    to={`/news/${article._id || article.id || article.slug}`}
+                    className="home-africa-image-link"
+                  >
+                    {article.image ? (
+                      <img
+                        src={article.image}
+                        alt={article.title}
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="home-africa-image-placeholder">
+                        AFRICAN FOOTBALL
+                      </div>
+                    )}
+                  </Link>
+
+                  <div className="home-africa-card-content">
+                    <span className="home-africa-tag">
+                      {article.competition === "caf-champions-league"
+                        ? "CAF Champions League"
+                        : article.competition === "caf-confederation-cup"
+                          ? "CAF Confederation Cup"
+                          : article.country
+                            ? article.country.replace(/-/g, " ")
+                            : "African Football"}
+                    </span>
+
+                    <h3>
+                      <Link
+                        to={`/news/${article._id || article.id || article.slug}`}
+                      >
+                        {article.title}
+                      </Link>
+                    </h3>
+
+                    <p>
+                      {article.summary ||
+                        "Read the latest African football story on Cabby Sports."}
+                    </p>
+
+                    <Link
+                      to={`/news/${article._id || article.id || article.slug}`}
+                      className="home-africa-read-more"
+                    >
+                      Read Story →
+                    </Link>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div className="home-africa-empty">
+              <h3>African football stories coming soon</h3>
+              <p>
+                Check back for updates from leagues and competitions across
+                Africa.
+              </p>
+              <Link to="/africa-football">
+                Explore Africa Football →
+              </Link>
+            </div>
+          )}
+        </div>
+      </section>
 
       {/* GRASSROOTS FOOTBALL HOMEPAGE SECTION */}
       <section className="home-grassroots-section">

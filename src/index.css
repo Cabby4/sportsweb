@@ -5952,6 +5952,214 @@ main {
    HOME FINAL CTA
 ========================================= */
 
+
+/* Africa Football homepage section */
+.home-africa-section {
+  padding: 64px 0;
+  background: #fff;
+}
+
+.home-africa-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.home-africa-eyebrow {
+  color: #15803d;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.home-africa-heading h2 {
+  margin: 8px 0 10px;
+  color: #101828;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 800;
+}
+
+.home-africa-heading p {
+  max-width: 650px;
+  margin: 0;
+  color: #667085;
+  line-height: 1.7;
+}
+
+.home-africa-view-all {
+  flex-shrink: 0;
+  color: #15803d;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.home-africa-view-all:hover,
+.home-africa-read-more:hover {
+  text-decoration: underline;
+}
+
+.home-africa-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.home-africa-topics a {
+  padding: 9px 14px;
+  color: #166534;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.home-africa-topics a:hover {
+  color: #fff;
+  background: #15803d;
+}
+
+.home-africa-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.home-africa-card {
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e4eaf5;
+  border-radius: 14px;
+  box-shadow: 0 6px 22px rgba(16, 24, 40, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.home-africa-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(16, 24, 40, 0.1);
+}
+
+.home-africa-image-link {
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: #dcfce7;
+}
+
+.home-africa-image-link img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.home-africa-card:hover .home-africa-image-link img {
+  transform: scale(1.04);
+}
+
+.home-africa-image-placeholder {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  min-height: 180px;
+  place-items: center;
+  color: #166534;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.home-africa-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 22px;
+}
+
+.home-africa-tag {
+  margin-bottom: 10px;
+  color: #15803d;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.home-africa-card h3 {
+  margin: 0 0 12px;
+  font-size: 1.2rem;
+  line-height: 1.45;
+}
+
+.home-africa-card h3 a {
+  color: #101828;
+  text-decoration: none;
+}
+
+.home-africa-card h3 a:hover {
+  color: #15803d;
+}
+
+.home-africa-card-content p {
+  margin-bottom: 18px;
+  color: #667085;
+  line-height: 1.7;
+}
+
+.home-africa-read-more {
+  margin-top: auto;
+  color: #15803d;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.home-africa-status {
+  padding: 24px 0;
+  color: #667085;
+}
+
+.home-africa-empty {
+  padding: 36px 24px;
+  background: #f8fafc;
+  border: 1px solid #e4eaf5;
+  border-radius: 14px;
+  text-align: center;
+}
+
+.home-africa-empty h3 {
+  font-weight: 800;
+}
+
+.home-africa-empty p {
+  color: #667085;
+}
+
+.home-africa-empty a {
+  color: #15803d;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .home-africa-section {
+    padding: 44px 0;
+  }
+
+  .home-africa-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .home-africa-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
+
+
 /* Grassroots Football homepage section */
 .home-grassroots-section {
   padding: 64px 0;
