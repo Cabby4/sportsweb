@@ -5952,6 +5952,189 @@ main {
    HOME FINAL CTA
 ========================================= */
 
+/* Grassroots Football homepage section */
+.home-grassroots-section {
+  padding: 64px 0;
+  background: #f5f8ff;
+}
+
+.home-grassroots-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 30px;
+}
+
+.home-grassroots-eyebrow {
+  color: #2563eb;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.home-grassroots-heading h2 {
+  margin: 8px 0 10px;
+  color: #101828;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 800;
+}
+
+.home-grassroots-heading p {
+  max-width: 650px;
+  margin: 0;
+  color: #667085;
+  line-height: 1.7;
+}
+
+.home-grassroots-view-all {
+  flex-shrink: 0;
+  color: #2563eb;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.home-grassroots-view-all:hover,
+.home-grassroots-read-more:hover {
+  text-decoration: underline;
+}
+
+.home-grassroots-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.home-grassroots-card {
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e4eaf5;
+  border-radius: 14px;
+  box-shadow: 0 6px 22px rgba(16, 24, 40, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.home-grassroots-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(16, 24, 40, 0.1);
+}
+
+.home-grassroots-image-link {
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: #dbeafe;
+}
+
+.home-grassroots-image-link img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.home-grassroots-card:hover .home-grassroots-image-link img {
+  transform: scale(1.04);
+}
+
+.home-grassroots-image-placeholder {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  min-height: 180px;
+  place-items: center;
+  color: #1d4ed8;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.home-grassroots-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 22px;
+}
+
+.home-grassroots-tag {
+  margin-bottom: 10px;
+  color: #2563eb;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.home-grassroots-card h3 {
+  margin: 0 0 12px;
+  font-size: 1.2rem;
+  line-height: 1.45;
+}
+
+.home-grassroots-card h3 a {
+  color: #101828;
+  text-decoration: none;
+}
+
+.home-grassroots-card h3 a:hover {
+  color: #2563eb;
+}
+
+.home-grassroots-card-content p {
+  margin-bottom: 18px;
+  color: #667085;
+  line-height: 1.7;
+}
+
+.home-grassroots-read-more {
+  margin-top: auto;
+  color: #2563eb;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.home-grassroots-status {
+  padding: 24px 0;
+  color: #667085;
+}
+
+.home-grassroots-empty {
+  padding: 36px 24px;
+  background: #fff;
+  border: 1px solid #e4eaf5;
+  border-radius: 14px;
+  text-align: center;
+}
+
+.home-grassroots-empty h3 {
+  font-weight: 800;
+}
+
+.home-grassroots-empty p {
+  color: #667085;
+}
+
+.home-grassroots-empty a {
+  color: #2563eb;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .home-grassroots-section {
+    padding: 44px 0;
+  }
+
+  .home-grassroots-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .home-grassroots-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
+
+
 .home-final-cta {
   padding: 70px 0;
   background: #ffffff;
