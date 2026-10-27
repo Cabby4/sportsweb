@@ -1499,7 +1499,10 @@ main {
   }
 }
 
-/*CABBYS SPORTS NAVBAR*/
+
+/* =========================================
+   CABBY SPORTS — MODERN RESPONSIVE NAVBAR
+========================================= */
 
 .cabby-navbar {
   position: fixed;
@@ -1508,191 +1511,330 @@ main {
   right: 0;
   width: 100%;
   z-index: 9999;
-  background: #061a33;
-  color: #ffffff;
-  border-bottom: 1px solid #17365c;
+  color: #fff;
+  background: rgba(6, 18, 35, 0.97);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.cabby-navbar .container {
+  max-width: 1440px;
 }
 
 .cabby-navbar-inner {
-  min-height: 86px;
+  min-height: 82px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 24px;
   position: relative;
 }
 
-.cabby-desktop-nav {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  position: relative;
-  z-index: 2;
-}
-
-.cabby-search {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  position: relative;
-  z-index: 3;
-  color: #ffffff;
-  text-decoration: none;
-}
-
-/*BRAND */
+/* BRAND */
 
 .cabby-brand {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-
-  gap: 14px;
-
+  gap: 11px;
+  flex-shrink: 0;
   text-decoration: none;
 }
 
 .cabby-brand-logo {
-  width: 64px;
-  height: 64px;
-
-  border-radius: 50%;
-
-  object-fit: cover;
-
-  border: 2px solid #f5c400;
-
   display: block;
+  width: 54px;
+  height: 54px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #39ff14;
+  box-shadow: 0 0 0 4px rgba(57, 255, 20, 0.08);
 }
 
 .cabby-brand-text {
   display: flex;
   flex-direction: column;
-
-  line-height: 0.9;
+  line-height: 0.95;
 }
 
 .cabby-name {
-  color: #ffffff;
-
-  font-size: 25px;
-  font-weight: 800;
-
-  letter-spacing: -1px;
+  color: #fff;
+  font-size: 23px;
+  font-weight: 900;
+  letter-spacing: 1px;
 }
 
 .sports-name {
   color: #39ff14;
-
-  font-size: 27px;
+  font-size: 24px;
   font-weight: 900;
-
-  letter-spacing: -1px;
+  letter-spacing: 1px;
 }
 
-/*DESKTOP NAVIGATION*/
+.sports-code {
+  margin-top: 5px;
+  color: #a8b6c9;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+}
+
+/* DESKTOP NAVIGATION */
 
 .cabby-desktop-nav {
   margin-left: auto;
-
-  display: sticky;
+  display: flex;
   align-items: center;
-
-  gap: 4px;
+  justify-content: flex-end;
+  gap: 3px;
+  position: relative;
+  z-index: 2;
 }
 
 .cabby-nav-link {
-  color: #e5e7eb !important;
-
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 10px;
+  border-radius: 7px;
+  color: #dbe5f1 !important;
   text-decoration: none;
-
-  font-size: 14px;
-  font-weight: 700;
-
-  padding: 12px 15px;
-
-  border-radius: 6px;
-
-  transition: all 0.2s ease;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 750;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
 }
 
 .cabby-nav-link:hover {
-  color: #ffffff !important;
-
-  background: #102b4d;
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .cabby-nav-link.active {
-  color: #ffffff !important;
-
-  background: #2563eb;
+  color: #39ff14 !important;
+  background: rgba(57, 255, 20, 0.09);
 }
 
-/*SEARCH*/
+.cabby-nav-dropdown {
+  position: relative;
+}
+
+.cabby-nav-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 0;
+  min-width: 235px;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  background: #0b1b30;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 12px;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease,
+    visibility 0.18s ease;
+}
+
+/* Keep dropdown accessible to mouse and keyboard users */
+.cabby-nav-dropdown:hover .cabby-nav-dropdown-menu,
+.cabby-nav-dropdown:focus-within .cabby-nav-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.cabby-nav-dropdown-menu a {
+  display: block;
+  padding: 11px 12px;
+  border-radius: 7px;
+  color: #dbe5f1;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
+}
+
+.cabby-nav-dropdown-menu a:hover,
+.cabby-nav-dropdown-menu a.active {
+  color: #39ff14;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+/* SEARCH */
 
 .cabby-search {
-  width: 42px;
-  height: 42px;
-
-  display: flex;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
-
-  color: #ffffff !important;
-
+  margin-left: 5px;
+  /* border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 9px; */
+  color: #fff !important;
+  /* background: rgba(255, 255, 255, 0.04); */
   text-decoration: none;
-
-  font-size: 18px;
-
-  border-radius: 6px;
-
-  margin-left: 6px;
-
-  transition: background 0.2s ease;
+  font-size: 25px;
+  line-height: 1;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .cabby-search:hover {
-  background: #102b4d;
+  color: #39ff14 !important;
+  background: rgba(57, 255, 20, 0.08);
+  border-color: rgba(57, 255, 20, 0.4);
 }
 
-/*MOBILE*/
+/* MOBILE CONTROLS */
 
 .cabby-mobile-controls {
   display: none;
-
-  margin-left: auto;
-
   align-items: center;
+  gap: 9px;
+  margin-left: auto;
 }
 
 .cabby-menu-btn {
   width: 42px;
   height: 42px;
-
-  margin-left: 5px;
-
-  border: 1px solid #294667;
-
-  border-radius: 6px;
-
-  background: #061a33;
-
-  color: #ffffff;
-
-  font-size: 22px;
-
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  font-size: 21px;
   cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
 }
+
+.cabby-menu-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(57, 255, 20, 0.5);
+}
+
+.cabby-menu-btn:focus-visible,
+.cabby-search:focus-visible,
+.cabby-navbar a:focus-visible,
+.cabby-navbar button:focus-visible {
+  outline: 2px solid #39ff14;
+  outline-offset: 3px;
+}
+
+/* MOBILE MENU */
 
 .cabby-mobile-nav {
   display: none;
 }
 
-/*TABLET / MOBILE */
+.cabby-mobile-link,
+.cabby-mobile-sublink {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 15px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #dbe5f1 !important;
+  text-decoration: none;
+  text-align: left;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
+}
+
+.cabby-mobile-link:hover,
+.cabby-mobile-sublink:hover {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.cabby-mobile-link.active,
+.cabby-mobile-sublink.active {
+  color: #39ff14 !important;
+  background: rgba(57, 255, 20, 0.08);
+}
+
+.cabby-mobile-toggle {
+  cursor: pointer;
+}
+
+.cabby-mobile-sublink {
+  padding-left: 30px;
+  color: #b9c8da !important;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.cabby-mobile-sublink::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #39ff14;
+}
+
+/* TABLET AND MOBILE */
+
+@media (max-width: 1199px) {
+  .cabby-navbar-inner {
+    gap: 12px;
+  }
+
+  .cabby-brand-logo {
+    width: 48px;
+    height: 48px;
+  }
+
+  .cabby-name {
+    font-size: 21px;
+  }
+
+  .sports-name {
+    font-size: 22px;
+  }
+
+  .cabby-desktop-nav {
+    gap: 1px;
+  }
+
+  .cabby-nav-link {
+    padding: 0 7px;
+    font-size: 11px;
+  }
+}
 
 @media (max-width: 991px) {
-
   .cabby-navbar-inner {
-    min-height: 76px;
+    min-height: 72px;
   }
 
   .cabby-desktop-nav {
@@ -1705,37 +1847,13 @@ main {
 
   .cabby-mobile-nav {
     display: flex;
-
     flex-direction: column;
-
-    border-top: 1px solid #17365c;
-
-    padding: 8px 0 12px;
-  }
-
-  .cabby-mobile-link {
-    color: #d1d5db !important;
-
-    text-decoration: none;
-
-    font-size: 15px;
-    font-weight: 700;
-
-    padding: 14px 15px;
-
-    border-radius: 6px;
-  }
-
-  .cabby-mobile-link:hover {
-    background: #102b4d;
-
-    color: #ffffff !important;
-  }
-
-  .cabby-mobile-link.active {
-    color: #39ff14 !important;
-
-    background: #102b4d;
+    gap: 3px;
+    max-height: calc(100dvh - 82px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 12px 0 16px;
+    border-top: 1px solid rgba(148, 163, 184, 0.18);
   }
 }
 
@@ -1743,24 +1861,112 @@ main {
 
 @media (max-width: 480px) {
 
-  .cabby-brand-logo {
-    width: 42px;
-    height: 12px;
-  }
-
   .cabby-name {
-    font-size: 19px;
+  font-size: 17px;
+  line-height: 1;
+}
+
+.sports-name {
+  font-size: 13px;
+  line-height: 1;
+}
+
+.sports-code {
+  font-size: 8px;
+  line-height: 1.2;
+}
+
+.cabby-brand-logo {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+}
+
+  .cabby-brand-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.sports-code {
+  display: block;
+  font-size: 9px;
+  line-height: 1.3;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  max-width: 100%;
+}
+
+.cabby-brand-logo {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+  .cabby-navbar .container {
+    padding-left: 14px;
+    padding-right: 14px;
   }
 
-  .sports-name {
-    font-size: 21px;
+  .cabby-navbar-inner {
+    min-height: 66px;
+    gap: 8px;
   }
 
   .cabby-brand {
-    gap: 9px;
+    gap: 8px;
+    min-width: 0;
   }
 
+  .cabby-brand-logo {
+    width: 42px;
+    height: 42px;
+  }
+
+  .cabby-name {
+    font-size: 17px;
+  }
+
+  .sports-name {
+    font-size: 20px;
+  }
+
+  .sports-code {
+    max-width: 155px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 7px;
+  }
+
+  .cabby-mobile-controls {
+    gap: 6px;
+  }
+
+  .cabby-mobile-controls .cabby-search,
+  .cabby-menu-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  .cabby-mobile-nav {
+    max-height: calc(100dvh - 72px);
+  }
 }
+
+/* Respect reduced-motion preferences */
+
+@media (prefers-reduced-motion: reduce) {
+  .cabby-navbar *,
+  .cabby-navbar *::before,
+  .cabby-navbar *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
 
 /*CABBY SPORTS HERO */
 
@@ -8191,3 +8397,852 @@ section img.card-img-top,
     transform: none;
   }
 }
+
+
+
+/* =====================================================
+   CABBY SPORTS — PREMIUM HOMEPAGE REDESIGN
+   Dark navy • Editorial layout • Sports green
+   CSS only — leaves navbar and Hero styling untouched
+===================================================== */
+
+.home-page {
+  --cabby-navy: #07172b;
+  --cabby-navy-light: #10243d;
+  --cabby-green: #19c37d;
+  --cabby-ink: #111827;
+  --cabby-muted: #64748b;
+  --cabby-line: #e2e8f0;
+  color: var(--cabby-ink);
+  background: #fff;
+  overflow: clip;
+}
+
+.home-page .container {
+  width: min(100% - 40px, 1240px);
+  margin-inline: auto;
+}
+
+.home-page section:not(.cabby-hero) {
+  scroll-margin-top: 90px;
+}
+
+/* GLOBAL EDITORIAL SECTION HEADINGS */
+
+.home-page .cabby-section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 28px;
+  padding-bottom: 17px;
+  border-bottom: 1px solid var(--cabby-line);
+}
+
+.home-page .cabby-section-header h2 {
+  margin: 8px 0 0;
+  color: var(--cabby-ink);
+  font-size: clamp(1.65rem, 2.8vw, 2.35rem);
+  font-weight: 900;
+  letter-spacing: -1.1px;
+  line-height: 1.12;
+}
+
+.home-page .cabby-section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #087f53;
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 1.7px;
+  text-transform: uppercase;
+}
+
+.home-page .cabby-section-label::before {
+  content: "";
+  width: 22px;
+  height: 3px;
+  background: var(--cabby-green);
+}
+
+.home-page .cabby-view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  color: var(--cabby-navy);
+  font-size: 0.86rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition: color 0.2s ease, gap 0.2s ease;
+}
+
+.home-page .cabby-view-all:hover {
+  gap: 12px;
+  color: #087f53;
+}
+
+/* LATEST NEWS — LEAD STORY + SIDE STORIES */
+
+.home-page .cabby-latest-news {
+  padding: 56px 0 64px;
+  background: #fff;
+}
+
+.home-page .cabby-latest-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(300px, 0.85fr);
+  gap: 28px;
+  align-items: stretch;
+}
+
+.home-page .cabby-featured-news {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  overflow: hidden;
+  color: inherit;
+  background: #fff;
+  border: 1px solid var(--cabby-line);
+  text-decoration: none;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.home-page .cabby-featured-news:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 38px rgb(7 23 43 / 12%);
+}
+
+.home-page .cabby-featured-image {
+  position: relative;
+  height: clamp(250px, 31vw, 410px);
+  overflow: hidden;
+  background: var(--cabby-navy-light);
+}
+
+.home-page .cabby-featured-image img,
+.home-page .cabby-side-news-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+
+.home-page .cabby-featured-news:hover .cabby-featured-image img,
+.home-page .cabby-side-news-card:hover .cabby-side-news-image img {
+  transform: scale(1.045);
+}
+
+.home-page .cabby-featured-image::after {
+  position: absolute;
+  inset: 45% 0 0;
+  background: linear-gradient(transparent, rgb(7 23 43 / 35%));
+  content: "";
+  pointer-events: none;
+}
+
+.home-page .cabby-news-category {
+  position: absolute;
+  z-index: 1;
+  bottom: 15px;
+  left: 16px;
+  padding: 7px 11px;
+  color: #062318;
+  background: var(--cabby-green);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+}
+
+.home-page .cabby-featured-content {
+  padding: 25px 26px 22px;
+}
+
+.home-page .cabby-featured-content h3 {
+  margin: 0 0 13px;
+  color: var(--cabby-ink);
+  font-size: clamp(1.5rem, 2.4vw, 2.2rem);
+  font-weight: 900;
+  line-height: 1.17;
+  letter-spacing: -0.8px;
+}
+
+.home-page .cabby-featured-news:hover h3 {
+  color: #087f53;
+}
+
+.home-page .cabby-featured-content p {
+  margin-bottom: 18px;
+  color: var(--cabby-muted);
+  font-size: 0.96rem;
+  line-height: 1.75;
+}
+
+.home-page .cabby-news-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 9px;
+  color: var(--cabby-muted);
+  font-size: 0.77rem;
+  font-weight: 600;
+}
+
+.home-page .cabby-side-news {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  border-top: 3px solid var(--cabby-navy);
+}
+
+.home-page .cabby-side-news-card {
+  display: grid;
+  grid-template-columns: 124px minmax(0, 1fr);
+  gap: 15px;
+  padding: 17px 0;
+  color: inherit;
+  border-bottom: 1px solid var(--cabby-line);
+  text-decoration: none;
+}
+
+.home-page .cabby-side-news-image {
+  height: 104px;
+  overflow: hidden;
+  background: #edf2f7;
+}
+
+.home-page .cabby-side-news-content {
+  align-self: center;
+  min-width: 0;
+}
+
+.home-page .cabby-side-news-content > span {
+  display: block;
+  margin-bottom: 7px;
+  color: #087f53;
+  font-size: 0.66rem;
+  font-weight: 900;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+}
+
+.home-page .cabby-side-news-content h3 {
+  margin: 0 0 8px;
+  color: var(--cabby-ink);
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.home-page .cabby-side-news-card:hover h3 {
+  color: #087f53;
+}
+
+.home-page .cabby-side-news-content small {
+  color: var(--cabby-muted);
+  font-size: 0.74rem;
+}
+
+/* TRENDING — DISTINCTIVE EDITORIAL LIST */
+
+.home-page .cabby-trending-section {
+  padding: 54px 0 62px;
+  background: #f4f7fa;
+  border-top: 1px solid #edf1f5;
+  border-bottom: 1px solid #edf1f5;
+}
+
+.home-page .cabby-trending-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 12px;
+  color: #b42318;
+  background: #fff0ed;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.home-page .cabby-trending-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 28px;
+}
+
+.home-page .cabby-trending-card {
+  display: grid;
+  grid-template-columns: 42px 104px minmax(0, 1fr) 18px;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  padding: 17px 0;
+  color: inherit;
+  border-bottom: 1px solid #dbe3eb;
+  text-decoration: none;
+}
+
+.home-page .cabby-trending-number {
+  color: #a4afbd;
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+.home-page .cabby-trending-image {
+  height: 82px;
+  overflow: hidden;
+  background: #dce4ed;
+}
+
+.home-page .cabby-trending-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.home-page .cabby-trending-card:hover .cabby-trending-image img {
+  transform: scale(1.06);
+}
+
+.home-page .cabby-trending-content {
+  min-width: 0;
+}
+
+.home-page .cabby-trending-content > span {
+  display: block;
+  margin-bottom: 5px;
+  color: #087f53;
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.home-page .cabby-trending-content h3 {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 0 0 7px;
+  color: var(--cabby-ink);
+  font-size: 0.92rem;
+  font-weight: 800;
+  line-height: 1.4;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.home-page .cabby-trending-card:hover h3 {
+  color: #087f53;
+}
+
+.home-page .cabby-trending-content small {
+  color: var(--cabby-muted);
+  font-size: 0.72rem;
+}
+
+.home-page .cabby-trending-arrow {
+  color: #8a97a8;
+  font-size: 1.2rem;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.home-page .cabby-trending-card:hover .cabby-trending-arrow {
+  color: #087f53;
+  transform: translateX(3px);
+}
+
+/* MATCH CENTRE — FIXTURES AND RESULTS */
+
+.home-page .cabby-fixtures-section,
+.home-page .cabby-results-section {
+  padding: 58px 0;
+  background: #fff;
+}
+
+.home-page .cabby-fixtures-list,
+.home-page .cabby-results-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.home-page .cabby-fixture-card,
+.home-page .cabby-result-card {
+  min-width: 0;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid var(--cabby-line);
+  border-top: 3px solid var(--cabby-navy);
+  box-shadow: 0 4px 14px rgb(7 23 43 / 4%);
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.home-page .cabby-fixture-card:hover,
+.home-page .cabby-result-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 26px rgb(7 23 43 / 9%);
+}
+
+.home-page .cabby-fixture-top,
+.home-page .cabby-result-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.home-page .cabby-fixture-competition,
+.home-page .cabby-result-competition {
+  color: var(--cabby-navy);
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.home-page .cabby-fixture-status,
+.home-page .cabby-result-status {
+  color: #087f53;
+  font-size: 0.64rem;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+}
+
+.home-page .cabby-fixture-date,
+.home-page .cabby-result-date {
+  margin-bottom: 18px;
+  color: var(--cabby-muted);
+  font-size: 0.75rem;
+}
+
+.home-page .cabby-fixture-teams,
+.home-page .cabby-result-teams {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+}
+
+.home-page .cabby-team,
+.home-page .cabby-result-team {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  text-align: center;
+}
+
+.home-page .cabby-team strong,
+.home-page .cabby-result-team strong {
+  overflow-wrap: anywhere;
+  color: var(--cabby-ink);
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.home-page .cabby-team-badge,
+.home-page .cabby-result-badge {
+  display: flex;
+  width: 48px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #f4f7fa;
+  border: 1px solid #e5ebf1;
+  border-radius: 50%;
+}
+
+.home-page .cabby-team-badge img,
+.home-page .cabby-result-badge img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.home-page .cabby-vs {
+  color: #8491a2;
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.home-page .cabby-match-button,
+.home-page .cabby-result-button {
+  display: block;
+  margin-top: 19px;
+  padding: 11px 12px;
+  color: #fff;
+  background: var(--cabby-navy);
+  border: 1px solid var(--cabby-navy);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.home-page .cabby-match-button:hover,
+.home-page .cabby-result-button:hover {
+  color: #062318;
+  background: var(--cabby-green);
+  border-color: var(--cabby-green);
+}
+
+.home-page .cabby-final-score {
+  text-align: center;
+}
+
+.home-page .cabby-score {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--cabby-navy);
+  font-size: 1.45rem;
+  font-weight: 900;
+}
+
+.home-page .cabby-final-score small {
+  display: block;
+  margin-top: 5px;
+  color: var(--cabby-muted);
+  font-size: 0.6rem;
+  font-weight: 800;
+}
+
+/* TRANSFERS — CLEAN PLAYER CARDS */
+
+.home-page .cabby-transfers-section {
+  padding: 58px 0 64px;
+  background: #f4f7fa;
+}
+
+.home-page .cabby-transfers-section .card {
+  height: 100%;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--cabby-line) !important;
+  border-top: 3px solid var(--cabby-navy) !important;
+  border-radius: 0 !important;
+  box-shadow: 0 4px 14px rgb(7 23 43 / 5%) !important;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.home-page .cabby-transfers-section .card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgb(7 23 43 / 10%) !important;
+}
+
+.home-page .cabby-transfers-section .card-body {
+  padding: 24px;
+}
+
+.home-page .cabby-transfers-section h5 {
+  color: var(--cabby-ink);
+  font-size: 1.1rem;
+  font-weight: 900;
+}
+
+.home-page .cabby-transfers-section .badge.bg-success {
+  color: #062318 !important;
+  background: var(--cabby-green) !important;
+  border-radius: 2px;
+  font-weight: 900;
+}
+
+.home-page .cabby-transfers-section .btn-dark {
+  padding: 12px;
+  color: #fff;
+  background: var(--cabby-navy);
+  border-radius: 2px;
+  font-weight: 800;
+}
+
+.home-page .cabby-transfers-section .btn-dark:hover {
+  color: #062318;
+  background: var(--cabby-green);
+}
+
+/* AFRICA FOOTBALL — AFRICAN GREEN */
+
+.home-page .home-africa-section {
+  background: #fff;
+}
+
+.home-page .home-africa-heading {
+  border-bottom-color: #dce8df;
+}
+
+.home-page .home-africa-heading::after {
+  background: #15803d;
+}
+
+.home-page .home-africa-card {
+  border-radius: 0;
+  box-shadow: 0 4px 16px rgb(7 23 43 / 5%);
+}
+
+.home-page .home-africa-card:hover {
+  border-color: #b8d8c3;
+  box-shadow: 0 14px 30px rgb(7 23 43 / 9%);
+}
+
+.home-page .home-africa-tag,
+.home-page .home-africa-read-more,
+.home-page .home-africa-view-all {
+  color: #15803d;
+}
+
+/* GRASSROOTS — ELECTRIC BLUE */
+
+.home-page .home-grassroots-section {
+  background: #edf4ff;
+}
+
+.home-page .home-grassroots-heading {
+  border-bottom-color: #cbdcff;
+}
+
+.home-page .home-grassroots-heading::after {
+  background: #2563eb;
+}
+
+.home-page .home-grassroots-card {
+  border-radius: 0;
+  box-shadow: 0 4px 16px rgb(7 23 43 / 5%);
+}
+
+.home-page .home-grassroots-card:hover {
+  border-color: #b4caff;
+  box-shadow: 0 14px 30px rgb(7 23 43 / 9%);
+}
+
+/* FINAL CTA — PREMIUM DARK FINISH */
+
+.home-page .home-final-cta {
+  padding: 60px 0 70px;
+  background: #fff;
+}
+
+.home-page .home-final-cta-box {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 100% 0%, rgb(25 195 125 / 14%), transparent 42%),
+    var(--cabby-navy);
+  border: 0;
+  border-top: 4px solid var(--cabby-green);
+  border-radius: 0;
+  box-shadow: 0 20px 50px rgb(7 23 43 / 15%);
+}
+
+.home-page .home-final-cta-box h2::after {
+  background: var(--cabby-green);
+}
+
+/* BREAKING NEWS TICKER — KEEP EXISTING BEHAVIOUR */
+
+.home-page .cabby-breaking-news {
+  border-top: 1px solid #e3e9ef;
+  border-bottom: 1px solid #e3e9ef;
+}
+
+.home-page .cabby-breaking-label {
+  font-weight: 900;
+}
+
+/* RESPONSIVE LAYOUT */
+
+@media (max-width: 1000px) {
+  .home-page .cabby-latest-grid {
+    grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
+    gap: 20px;
+  }
+
+  .home-page .cabby-side-news-card {
+    grid-template-columns: 100px minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .home-page .cabby-side-news-image {
+    height: 88px;
+  }
+
+  .home-page .cabby-fixtures-list,
+  .home-page .cabby-results-list {
+    gap: 12px;
+  }
+
+  .home-page .cabby-fixture-card,
+  .home-page .cabby-result-card {
+    padding: 15px;
+  }
+
+  .home-page .cabby-trending-list {
+    gap: 0 20px;
+  }
+
+  .home-page .cabby-trending-card {
+    grid-template-columns: 32px 82px minmax(0, 1fr) 14px;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 760px) {
+  .home-page .container {
+    width: min(100% - 30px, 1240px);
+  }
+
+  .home-page .cabby-latest-news,
+  .home-page .cabby-trending-section,
+  .home-page .cabby-fixtures-section,
+  .home-page .cabby-results-section,
+  .home-page .cabby-transfers-section {
+    padding: 40px 0;
+  }
+
+  .home-page .cabby-latest-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-page .cabby-featured-image {
+    height: clamp(220px, 58vw, 360px);
+  }
+
+  .home-page .cabby-featured-content {
+    padding: 21px;
+  }
+
+  .home-page .cabby-featured-content h3 {
+    font-size: clamp(1.4rem, 5vw, 1.9rem);
+  }
+
+  .home-page .cabby-side-news-card {
+    grid-template-columns: 112px minmax(0, 1fr);
+  }
+
+  .home-page .cabby-side-news-image {
+    height: 94px;
+  }
+
+  .home-page .cabby-trending-list {
+    grid-template-columns: 1fr;
+  }
+
+  .home-page .cabby-fixtures-list,
+  .home-page .cabby-results-list {
+    grid-template-columns: 1fr;
+  }
+
+  .home-page .cabby-fixture-card,
+  .home-page .cabby-result-card {
+    padding: 19px;
+  }
+
+  .home-page .cabby-section-header {
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .home-page .cabby-section-header h2 {
+    font-size: 1.7rem;
+  }
+
+  .home-page .cabby-view-all {
+    margin-top: 7px;
+    font-size: 0.76rem;
+  }
+
+  .home-page .home-africa-section,
+  .home-page .home-grassroots-section {
+    padding: 44px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-page .container {
+    width: min(100% - 24px, 1240px);
+  }
+
+  .home-page .cabby-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .home-page .cabby-section-header h2 {
+    font-size: 1.65rem;
+  }
+
+  .home-page .cabby-featured-image {
+    height: 225px;
+  }
+
+  .home-page .cabby-featured-content {
+    padding: 18px;
+  }
+
+  .home-page .cabby-featured-content p {
+    font-size: 0.9rem;
+  }
+
+  .home-page .cabby-side-news-card {
+    grid-template-columns: 94px minmax(0, 1fr);
+    gap: 11px;
+  }
+
+  .home-page .cabby-side-news-image {
+    height: 82px;
+  }
+
+  .home-page .cabby-side-news-content h3 {
+    font-size: 0.9rem;
+  }
+
+  .home-page .cabby-trending-card {
+    grid-template-columns: 27px 78px minmax(0, 1fr) 12px;
+    gap: 8px;
+  }
+
+  .home-page .cabby-trending-number {
+    font-size: 1.15rem;
+  }
+
+  .home-page .cabby-trending-image {
+    height: 72px;
+  }
+
+  .home-page .cabby-trending-content h3 {
+    font-size: 0.84rem;
+  }
+
+  .home-page .home-final-cta {
+    padding: 35px 0 44px;
+  }
+}
+
+/* ACCESSIBILITY: REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+  .home-page .cabby-featured-news,
+  .home-page .cabby-featured-image img,
+  .home-page .cabby-side-news-image img,
+  .home-page .cabby-trending-image img,
+  .home-page .cabby-trending-card,
+  .home-page .cabby-fixture-card,
+  .home-page .cabby-result-card,
+  .home-page .cabby-transfers-section .card {
+    transition: none;
+  }
+
+  .home-page .cabby-featured-news:hover,
+  .home-page .cabby-fixture-card:hover,
+  .home-page .cabby-result-card:hover,
+  .home-page .cabby-transfers-section .card:hover {
+    transform: none;
+  }
+}
+
