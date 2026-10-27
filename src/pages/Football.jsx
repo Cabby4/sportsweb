@@ -1,4 +1,4 @@
-
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import newsData from "../data/newsData";
 import matchData from "../data/matchData";
@@ -18,7 +18,58 @@ const Football = () => {
   const latestTransfers = transferData.slice(0, 4);
 
   return (
+
+    
     <main className="football-page">
+
+<Helmet>
+  <title>Football News, Fixtures, Results & Transfers | Cabby Sports</title>
+
+  <meta
+    name="description"
+    content="Explore the latest football news, upcoming fixtures, match results and transfer updates from around the world, with dedicated African and grassroots football coverage on Cabby Sports."
+  />
+
+  <meta name="robots" content="index, follow" />
+
+  <link
+    rel="canonical"
+    href="https://cabbysports.vercel.app/football"
+  />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Cabby Sports" />
+  <meta
+    property="og:title"
+    content="Football News, Fixtures, Results & Transfers | Cabby Sports"
+  />
+  <meta
+    property="og:description"
+    content="Stay connected with football news, fixtures, results, transfers, African football and grassroots stories."
+  />
+  <meta
+    property="og:url"
+    content="https://cabbysports.vercel.app/football"
+  />
+  <meta
+    property="og:image"
+    content="https://cabbysports.vercel.app/cabby-sports-logo.png"
+  />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta
+    name="twitter:title"
+    content="Football News, Fixtures, Results & Transfers | Cabby Sports"
+  />
+  <meta
+    name="twitter:description"
+    content="Get football news, fixtures, results and transfer updates, including African and grassroots football."
+  />
+  <meta
+    name="twitter:image"
+    content="https://cabbysports.vercel.app/cabby-sports-logo.png"
+  />
+</Helmet>
 
       {/* =================================
           FOOTBALL HERO

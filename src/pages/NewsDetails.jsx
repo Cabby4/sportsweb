@@ -1,10 +1,14 @@
+
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { getNewsById } from "../services/api";
 
 import RelatedNews from "../components/RelatedNews";
 import FollowUs from "../components/FollowUs";
 import ShareButtons from "../components/ShareButtons";
+
+const SITE_URL = "https://cabbysports.vercel.app";
 
 const NewsDetails = () => {
   const { id } = useParams();
@@ -16,11 +20,14 @@ const NewsDetails = () => {
   useEffect(() => {
     const fetchArticle = async () => {
       setLoading(true);
+      setError("");
+
       try {
         const data = await getNewsById(id);
         setArticle(data.data);
       } catch (error) {
         setError(error.message);
+        setArticle(null);
       } finally {
         setLoading(false);
       }
@@ -62,8 +69,43 @@ const NewsDetails = () => {
     );
   }
 
+  const pageTitle = `${article.title} | Cabby Sports`;
+  const pageDescription = (
+    article.summary ||
+    article.content ||
+    article.title
+  )
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 160);
+const canonicalUrl = `${SITE_URL}/news/${encodeURIComponent(
+  article._id || id
+)}`;
+  const imageUrl = article.image
+    ? new URL(article.image, SITE_URL).href
+    : `${SITE_URL}/cabby-sports-logo.png`;
+
   return (
     <div className="container py-5">
+      <Helmet>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href={canonicalUrl} />
+
+        <meta property="og:type" content="article" />
+        <meta property="og:site_name" content="Cabby Sports" />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:image" content={imageUrl} />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={pageDescription} />
+        <meta name="twitter:image" content={imageUrl} />
+      </Helmet>
+
       <Link to="/news" className="btn btn-outline-dark mb-4">
         ← Back to News
       </Link>
@@ -74,7 +116,7 @@ const NewsDetails = () => {
             src={article.image}
             alt={article.title}
             className="img-fluid rounded mb-4"
-           style={{
+            style={{
               width: "100%",
               height: "auto",
               maxHeight: "600px",
@@ -84,7 +126,9 @@ const NewsDetails = () => {
           />
         )}
 
-        <span className="badge bg-success mb-3">{article.category}</span>
+        <span className="badge bg-success mb-3">
+          {article.category}
+        </span>
 
         <h1 className="fw-bold mb-3">{article.title}</h1>
 
@@ -112,10 +156,9 @@ const NewsDetails = () => {
         )}
       </article>
 
-         <ShareButtons title={article.title} />
-        <FollowUs />
+      <ShareButtons title={article.title} />
+      <FollowUs />
       <RelatedNews current={article} />
-      
     </div>
   );
 };

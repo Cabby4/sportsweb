@@ -1,4 +1,4 @@
-
+import { Helmet } from "react-helmet-async";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -73,6 +73,56 @@ const Home = () => {
   }, []);
 
   return (
+    <>
+      <Helmet>
+        <title>Cabby Sports | Latest Football News, Fixtures & Transfers</title>
+
+        <meta
+          name="description"
+          content="Get the latest football news, live match updates, fixtures, results, transfer news, African football stories and grassroots football coverage on Cabby Sports."
+        />
+
+        <meta name="robots" content="index, follow" />
+
+        <link
+          rel="canonical"
+          href="https://cabbysports.vercel.app/"
+        />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Cabby Sports" />
+        <meta
+          property="og:title"
+          content="Cabby Sports | Latest Football News, Fixtures & Transfers"
+        />
+        <meta
+          property="og:description"
+          content="Follow breaking football news, fixtures, results, transfers, African football and grassroots stories."
+        />
+        <meta
+          property="og:url"
+          content="https://cabbysports.vercel.app/"
+        />
+        <meta
+          property="og:image"
+          content="https://cabbysports.vercel.app/cabby-sports-logo.png"
+        />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Cabby Sports | Latest Football News"
+        />
+        <meta
+          name="twitter:description"
+          content="Your home for football news, fixtures, results, transfers and African football."
+        />
+        <meta
+          name="twitter:image"
+          content="https://cabbysports.vercel.app/cabby-sports-logo.png"
+        />
+      </Helmet>
+
     <main className="home-page">
       <Hero />
 
@@ -335,6 +385,7 @@ const Home = () => {
         </div>
       </section>
     </main>
+    </>
   );
 };
 

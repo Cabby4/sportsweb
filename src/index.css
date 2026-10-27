@@ -47,22 +47,6 @@ main {
    HERO SECTION
 ========================= */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @media (max-width: 480px) {
   .cabby-hero {
     min-height: 470px;
@@ -97,6 +81,296 @@ main {
   .cabby-primary-btn,
   .cabby-secondary-btn {
     width: 100%;
+  }
+}
+
+
+/* =========================
+   CABBY SPORTS HERO REDESIGN
+   ========================= */
+
+.cabby-hero {
+  position: relative;
+  min-height: 590px;
+  height: auto;
+  overflow: hidden;
+  background: #07111f;
+  isolation: isolate;
+}
+
+.cabby-hero-backgrounds {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.cabby-hero-background {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1.04);
+  transition:
+    opacity 1s ease-in-out,
+    transform 6s ease;
+}
+
+.cabby-hero-background.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.cabby-hero-overlay {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 590px;
+  height: 100%;
+  padding: 65px 0;
+  background: linear-gradient(
+    90deg,
+    rgba(3, 9, 18, 0.96) 0%,
+    rgba(3, 9, 18, 0.82) 43%,
+    rgba(3, 9, 18, 0.35) 75%,
+    rgba(3, 9, 18, 0.2) 100%
+  );
+}
+
+.cabby-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
+  padding: 35px 0;
+  color: #fff;
+}
+
+.cabby-hero-category {
+  display: inline-block;
+  margin-bottom: 22px;
+  padding: 8px 14px;
+  border-left: 4px solid #16a34a;
+  background: rgba(22, 163, 74, 0.16);
+  color: #72f0a0;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+}
+
+.cabby-hero-content h1 {
+  max-width: 750px;
+  margin: 0 0 22px;
+  color: #fff;
+  font-size: clamp(38px, 5vw, 66px);
+  font-weight: 900;
+  line-height: 1.04;
+  letter-spacing: -1.8px;
+  text-transform: uppercase;
+}
+
+.cabby-hero-content p {
+  max-width: 650px;
+  margin: 0 0 30px;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.cabby-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+
+.cabby-primary-btn,
+.cabby-secondary-btn {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 13px 22px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.cabby-primary-btn {
+  background: #16a34a;
+  color: #fff;
+}
+
+.cabby-primary-btn:hover {
+  transform: translateY(-2px);
+  background: #15803d;
+  color: #fff;
+}
+
+.cabby-primary-btn span {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.cabby-secondary-btn {
+  border-color: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+}
+
+.cabby-secondary-btn:hover {
+  border-color: #fff;
+  background: #fff;
+  color: #111827;
+}
+
+.cabby-hero-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 5;
+  display: flex;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  font-size: 30px;
+  line-height: 1;
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: background 0.2s ease;
+}
+
+.cabby-hero-arrow:hover {
+  background: #16a34a;
+}
+
+.cabby-hero-prev {
+  left: 20px;
+}
+
+.cabby-hero-next {
+  right: 20px;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .cabby-hero,
+  .cabby-hero-overlay {
+    min-height: 540px;
+  }
+
+  .cabby-hero-overlay {
+    padding: 45px 0;
+    background: linear-gradient(
+      90deg,
+      rgba(3, 9, 18, 0.92),
+      rgba(3, 9, 18, 0.65)
+    );
+  }
+
+  .cabby-hero-content {
+    max-width: 620px;
+    padding: 30px 25px;
+  }
+
+  .cabby-hero-content h1 {
+    font-size: clamp(34px, 6vw, 48px);
+    letter-spacing: -1px;
+  }
+
+  .cabby-hero-content p {
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .cabby-hero-prev {
+    left: 10px;
+  }
+
+  .cabby-hero-next {
+    right: 10px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .cabby-hero,
+  .cabby-hero-overlay {
+    min-height: 500px;
+  }
+
+  .cabby-hero-overlay {
+    padding: 30px 0;
+    background: linear-gradient(
+      90deg,
+      rgba(3, 9, 18, 0.93),
+      rgba(3, 9, 18, 0.75)
+    );
+  }
+
+  .cabby-hero-content {
+    padding: 35px 24px;
+  }
+
+  .cabby-hero-category {
+    margin-bottom: 16px;
+    padding: 6px 10px;
+    font-size: 10px;
+    letter-spacing: 1.3px;
+  }
+
+  .cabby-hero-content h1 {
+    font-size: 32px;
+    line-height: 1.1;
+    letter-spacing: -0.6px;
+  }
+
+  .cabby-hero-content p {
+    margin-bottom: 24px;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .cabby-hero-actions {
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .cabby-primary-btn,
+  .cabby-secondary-btn {
+    width: 100%;
+    min-height: 46px;
+    padding: 12px 15px;
+  }
+
+  .cabby-hero-arrow {
+    top: auto;
+    bottom: 12px;
+    width: 36px;
+    height: 36px;
+    font-size: 24px;
+    transform: none;
+  }
+
+  .cabby-hero-prev {
+    left: auto;
+    right: 58px;
+  }
+
+  .cabby-hero-next {
+    right: 14px;
   }
 }
 
@@ -7474,4 +7748,446 @@ section img.card-img-top,
   object-fit: contain !important;
   object-position: center !important;
   background-color: #f1f1f1;
+}
+
+
+/* =========================================
+   CABBY SPORTS — HOMEPAGE DESIGN UPGRADE
+   Inspired by modern sports-news layouts
+========================================= */
+
+/* Consistent homepage section rhythm */
+.home-page {
+  color: #101828;
+  background: #ffffff;
+}
+
+.home-page .container {
+  width: min(100% - 40px, 1240px);
+  margin-inline: auto;
+}
+
+.home-page section {
+  scroll-margin-top: 90px;
+}
+
+/* Stronger section headings */
+.home-africa-heading,
+.home-grassroots-heading {
+  padding-bottom: 20px;
+  border-bottom: 3px solid #101828;
+  position: relative;
+}
+
+.home-africa-heading::after,
+.home-grassroots-heading::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 76px;
+  height: 3px;
+  background: #2563eb;
+}
+
+.home-africa-heading h2,
+.home-grassroots-heading h2 {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  line-height: 1.15;
+  letter-spacing: -0.8px;
+  margin-top: 10px;
+  margin-bottom: 12px;
+}
+
+.home-africa-eyebrow,
+.home-grassroots-eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+}
+
+.home-africa-eyebrow {
+  color: #15803d;
+}
+
+.home-grassroots-eyebrow {
+  color: #2563eb;
+}
+
+/* Clear, clickable section links */
+.home-africa-view-all,
+.home-grassroots-view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  transition: color 0.2s ease;
+}
+
+.home-africa-view-all {
+  color: #15803d;
+}
+
+.home-grassroots-view-all {
+  color: #2563eb;
+}
+
+.home-africa-view-all:hover {
+  color: #166534;
+}
+
+.home-grassroots-view-all:hover {
+  color: #1d4ed8;
+}
+
+/* Competition navigation chips */
+.home-africa-topics {
+  gap: 10px;
+  margin-top: 24px;
+  margin-bottom: 30px;
+}
+
+.home-africa-topics a {
+  padding: 10px 15px;
+  background: #f8fafc;
+  border: 1px solid #dbe2ea;
+  border-radius: 6px;
+  color: #172033;
+  font-size: 0.83rem;
+  font-weight: 800;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.home-africa-topics a:hover {
+  color: #ffffff;
+  background: #15803d;
+  border-color: #15803d;
+}
+
+/* More polished news-card grids */
+.home-africa-grid,
+.home-grassroots-grid {
+  align-items: stretch;
+  gap: 24px;
+}
+
+.home-africa-card,
+.home-grassroots-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 3px 12px rgba(16, 24, 40, 0.045);
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease;
+}
+
+.home-africa-card:hover,
+.home-grassroots-card:hover {
+  transform: translateY(-5px);
+  border-color: #cbd5e1;
+  box-shadow: 0 12px 28px rgba(16, 24, 40, 0.11);
+}
+
+/* Consistent image presentation */
+.home-africa-image-link,
+.home-grassroots-image-link {
+  aspect-ratio: 16 / 9;
+  background: #e9eef5;
+}
+
+.home-africa-image-link img,
+.home-grassroots-image-link img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.home-africa-image-placeholder,
+.home-grassroots-image-placeholder {
+  min-height: 190px;
+  padding: 20px;
+  text-align: center;
+}
+
+.home-africa-image-placeholder {
+  background: #f0fdf4;
+  color: #166534;
+}
+
+.home-grassroots-image-placeholder {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+/* Stronger story titles and readable summaries */
+.home-africa-card-content,
+.home-grassroots-card-content {
+  flex: 1;
+  padding: 20px;
+}
+
+.home-africa-tag,
+.home-grassroots-tag {
+  display: inline-block;
+  margin-bottom: 12px;
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.7px;
+  line-height: 1.5;
+}
+
+.home-africa-card h3,
+.home-grassroots-card h3 {
+  margin: 0 0 12px;
+  font-size: 1.12rem;
+  font-weight: 800;
+  line-height: 1.4;
+  letter-spacing: -0.25px;
+}
+
+.home-africa-card h3 a,
+.home-grassroots-card h3 a {
+  color: #111827;
+  transition: color 0.2s ease;
+}
+
+.home-africa-card-content p,
+.home-grassroots-card-content p {
+  color: #596579;
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+
+.home-africa-read-more,
+.home-grassroots-read-more {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.85rem;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.home-africa-read-more {
+  color: #15803d;
+}
+
+.home-grassroots-read-more {
+  color: #2563eb;
+}
+
+.home-africa-card h3 a:hover,
+.home-africa-read-more:hover {
+  color: #15803d;
+}
+
+.home-grassroots-card h3 a:hover,
+.home-grassroots-read-more:hover {
+  color: #1d4ed8;
+}
+
+/* Section backgrounds create clearer visual separation */
+.home-africa-section {
+  padding: 68px 0;
+  background: #ffffff;
+}
+
+.home-grassroots-section {
+  padding: 68px 0;
+  background: #f5f8ff;
+}
+
+/* Empty and loading states */
+.home-africa-status,
+.home-grassroots-status {
+  padding: 28px 0;
+  color: #596579;
+}
+
+.home-africa-empty,
+.home-grassroots-empty {
+  padding: 36px 24px;
+  border-radius: 8px;
+}
+
+.home-africa-empty {
+  background: #f8fafc;
+}
+
+.home-grassroots-empty {
+  background: #ffffff;
+}
+
+.home-africa-empty h3,
+.home-grassroots-empty h3 {
+  color: #101828;
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+/* Final call-to-action — cleaner sports-media finish */
+.home-final-cta {
+  padding: 64px 0;
+}
+
+.home-final-cta-box {
+  padding: clamp(28px, 5vw, 54px);
+  border-radius: 8px;
+  background: #07172b;
+  border-top: 4px solid #2563eb;
+}
+
+.home-final-cta-box > div:first-child > span {
+  color: #93c5fd;
+  font-size: 0.75rem;
+  letter-spacing: 1.4px;
+}
+
+.home-final-cta-box h2 {
+  letter-spacing: -0.5px;
+  filter: none;
+  animation: none;
+  background: none;
+  -webkit-text-fill-color: #ffffff;
+  color: #ffffff;
+}
+
+.home-final-cta-box h2::after {
+  background: #2563eb;
+  box-shadow: none;
+}
+
+.home-final-cta-box p {
+  color: #cbd5e1;
+}
+
+.home-cta-primary,
+.home-cta-secondary {
+  min-height: 46px;
+  border-radius: 5px;
+  font-weight: 800;
+}
+
+.home-cta-primary {
+  background: #2563eb;
+}
+
+.home-cta-primary:hover {
+  background: #1d4ed8;
+}
+
+.home-cta-secondary {
+  border-color: #64748b;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .home-africa-grid,
+  .home-grassroots-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .home-africa-heading,
+  .home-grassroots-heading {
+    gap: 18px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .home-page .container {
+    width: min(100% - 28px, 1240px);
+  }
+
+  .home-africa-section,
+  .home-grassroots-section {
+    padding: 44px 0;
+  }
+
+  .home-africa-heading,
+  .home-grassroots-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+
+  .home-africa-heading h2,
+  .home-grassroots-heading h2 {
+    font-size: 1.8rem;
+  }
+
+  .home-africa-heading p,
+  .home-grassroots-heading p {
+    font-size: 0.92rem;
+    line-height: 1.65;
+  }
+
+  .home-africa-topics {
+    gap: 8px;
+    margin-bottom: 22px;
+  }
+
+  .home-africa-topics a {
+    padding: 9px 11px;
+    font-size: 0.77rem;
+  }
+
+  .home-africa-grid,
+  .home-grassroots-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .home-africa-card-content,
+  .home-grassroots-card-content {
+    padding: 18px;
+  }
+
+  .home-africa-card h3,
+  .home-grassroots-card h3 {
+    font-size: 1.08rem;
+  }
+
+  .home-final-cta {
+    padding: 42px 0;
+  }
+
+  .home-final-cta-box {
+    padding: 28px 22px;
+  }
+
+  .home-final-cta-box h2 {
+    font-size: 1.8rem;
+  }
+
+  .home-final-cta-actions {
+    align-items: stretch;
+  }
+}
+
+/* Respect visitors who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .home-africa-card,
+  .home-grassroots-card,
+  .home-africa-image-link img,
+  .home-grassroots-image-link img {
+    transition: none;
+  }
+
+  .home-africa-card:hover,
+  .home-grassroots-card:hover {
+    transform: none;
+  }
 }
